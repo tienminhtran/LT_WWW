@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="login" />
+        <module name="section1" />
+        <module name="Registration" />
+        <module name="week3_TranMinhTien_21010611" />
+        <module name="week01_lab_TranMinhTien_21010611" />
+      </profile>
+    </annotationProcessing>
+  </component>
+</project>
