@@ -9,34 +9,28 @@ import vn.edu.iuh.fit.backend.repositories.entities.Product;
 
 @Path("/products")
 public class ProductResource {
-
-
     @EJB
-    public ProductBeanRemote productBean;
-
+    private ProductBeanRemote productBean;
     @GET
     @Produces("application/json")
-    public Response getProduct(){
-        return Response.ok(productBean.getAllProducts()).build();
+    public Response getAll() {
+        return Response.ok(productBean.getAll()).build();
     }
+
     @GET
+    @Consumes("application/json")
+    @Produces("application/json")
     @Path("/{id}")
-    public Response getProductById(int id){
-        return Response.ok(productBean.getProductById(id)).build();
+    public Response getById(@PathParam("id") int id) {
+        return Response.ok(productBean.getById(id)).build();
     }
 
     @POST
     @Consumes("application/json")
     @Produces("application/json")
     @Transactional
-    public Response add(Product product){
-        try {
-            Product p = productBean.addProduct(product);
-            return Response.status(Response.Status.CREATED).entity(p).build();
-        } catch (Exception e) {
-            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
-        }
+    public Response add(Product product) {
+        productBean.add(product);
+        return Response.ok(product).build();
     }
-
-
 }
