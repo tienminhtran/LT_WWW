@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cửa hàng xe</title>
+</head>
+
+<body>
+    <%
+        List<XeDTO> dsXe = (List<XeDTO>) session.getAttribute("xeDTOs");
+            if(dsXe == null){
+            response.sendRedirect("controller?action=dsXe");
+        }
+    %>
+
+    <H1>CỬA HÀNG BÁN XE GAN MAY ABC</H1>
+
+    <a href="controller?action=dsXe">Danh sách xe</a>
+    <a href="http://localhost:8080/xe/create">Thêm xe</a>
+
+<!--    TÌM KIÊM-->
+
+    <form>
+        <input type="text" name="search" placeholder="Nhập từ khóa tìm kiếm">
+        <button type="submit">Tìm kiếm</button>
+    </form>
+
+<!--    table-->
+
+
+    <table border="1">
+        <tr>
+            <th>STT</th>
+            <th>Mã xe</th>
+            <th>Tên xe</th>
+            <th>Loại xe</th>
+            <th>Giá xe</th>
+            <th>Ngày nhập</th>
+            <th>Thao tác</th>
+        </tr>
+    </table>
+
+</body>
+</html>
