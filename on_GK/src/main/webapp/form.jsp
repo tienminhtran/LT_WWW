@@ -29,6 +29,8 @@
 %>
 <body>
     <form action="controller" method="post">
+
+<%--        // action có thể ghi value = themxe,  ,....... suaxxe--%>
         <input type="hidden" name="action" value="<%=action%>">
         <table>
 

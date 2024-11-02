@@ -34,12 +34,15 @@ public class ServletController extends HttpServlet{
         HttpSession session = req.getSession(true);
         if(action.equals("getDsXe")){
             List<Xe> xeList = xeService.getDsXe();
-            session.setAttribute("dsXe", xeList);
-            req.getRequestDispatcher("index.jsp").forward(req, resp);
+            session.setAttribute("dsXe", xeList); // lấy bên clinet qua jsp
+            req.getRequestDispatcher("index.jsp").forward(req, resp); // tra ve trang index.jsp
         } else if(action.equals("themxe")){
             List< HangXe> hangXeList = hangXeService.getDsHangXe();
             session.setAttribute("hangXeList", hangXeList);
+
+
             session.setAttribute("xe", new Xe());
+
             req.getRequestDispatcher("form.jsp").forward(req, resp);
         } else if (action.equals("suaxe")){
             int maxe = Integer.parseInt(req.getParameter("maXe"));
@@ -71,6 +74,7 @@ public class ServletController extends HttpServlet{
             String mahangXe = req.getParameter("hangXe");
 
             HangXe hangXe1 = hangXeService.findByID(Integer.parseInt(mahangXe));
+
             Xe xe = new Xe(tenXe, Double.parseDouble(giaXe), namSX, hangXe1);
           boolean kq= xeService.addXe(xe);
           if(kq){
