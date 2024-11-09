@@ -14,6 +14,7 @@ public class SampleController {
     @Autowired
     private SampleServices servie;
 
+    //    localhost:8080/sample/index?a=1&b=2
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public ModelAndView index(@PathParam("a") int a, @PathParam("b") int b){
         ModelAndView mav = new ModelAndView("index");
@@ -22,6 +23,7 @@ public class SampleController {
         return mav;
     }
 
+    //localhost:8080/sample/cong
     @RequestMapping(value = "/cong", method = RequestMethod.GET)
     public ModelAndView cong(){
         ModelAndView mav = new ModelAndView("cong");
