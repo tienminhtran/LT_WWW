@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Job Details</title>
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/9631/9631363.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to right, #4facfe, #00f2fe);
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 800px;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            padding: 2rem;
+        }
+
+        .card {
+            border: none;
+            margin-bottom: 2rem;
+        }
+
+        .job-title {
+            color: #007bff;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .company-name {
+            font-style: italic;
+            color: #6c757d;
+        }
+
+        .skill-level {
+            font-weight: bold;
+        }
+
+        .badge.bg-success {
+            background-color: #28a745 !important;
+        }
+
+        .list-group-item {
+            border: none;
+            padding-left: 0;
+        }
+
+        .btn-primary {
+            background-color: #4e73df;
+            border: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #375aa7;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2 class="text-center mb-4">Job Details</h2>
+
+    <div class="card">
+        <div class="card-body">
+            <!-- Job Title -->
+            <h3 class="job-title mb-3" th:text="${job.getJobName()}">Job Name</h3>
+
+            <!-- Company Name -->
+            <p class="mb-2">
+                <strong>Company:</strong>
+                <span class="company-name" th:text="${job.getCompany().getCompName()}">Company Name</span>
+            </p>
+
+            <!-- Job Description -->
+            <p><strong>Description:</strong></p>
+            <p class="text-muted" th:text="${job.getJobDesc()}">Job Description goes here.</p>
+
+            <!-- Required Skills -->
+            <h4 class="mt-4">Required Skills</h4>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item d-flex justify-content-between align-items-center" th:each="jobSkill : ${job.jobSkills}">
+                    <span th:text="${jobSkill.skill.getSkillName()}">Skill Name</span>
+                    <span class="badge bg-success skill-level" th:text="${jobSkill.getSkillLevel()}">Skill Level</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Back Button -->
+    <div class="text-center mt-4">
+        <a th:href="@{/jobs/recommendations}" class="btn btn-primary btn-lg">Back to Recommendations</a>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/9631/9631363.png" type="image/x-icon">
+    <title>Job Postings</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <div class="text-center mb-4">
+        <h1>Welcome, <span th:text="${company.getCompName()}">Company</span></h1>
+        <a th:href="@{/logout}" class="btn btn-danger">Logout</a>
+    </div>
+    <h2>Job Postings</h2>
+    <a href="/jobs/new" class="btn btn-primary">New Job Posting</a>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>Job Name</th>
+            <th>Description</th>
+            <th>Company</th>
+            <th>Skills</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="jobPosting : ${jobPostings}">
+            <td th:text="${jobPosting.getJobName()}"></td>
+            <td th:text="${jobPosting.getJobDesc()}"></td>
+            <td th:text="${jobPosting.company.getCompName()}"></td>
+            <td>
+                <ul>
+                    <li th:each="jobSkill : ${jobPosting.getJobSkills()}" th:text="${jobSkill.skill.getSkillName()}"></li>
+                </ul>
+            </td>
+            <td>
+                <a th:href="@{'/jobs/' + ${jobPosting.getId()} + '/invite'}" class="btn btn-primary">Find candidates</a>
+                <a class="btn btn-primary">Edit</a>
+                <a class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
