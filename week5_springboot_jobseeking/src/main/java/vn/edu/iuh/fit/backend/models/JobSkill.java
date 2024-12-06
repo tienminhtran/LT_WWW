@@ -1,15 +1,10 @@
-package vn.edu.iuh.fit.backend.entities;
+package vn.edu.iuh.fit.backend.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 import vn.edu.iuh.fit.backend.converters.SkillLevelConverter;
 import vn.edu.iuh.fit.backend.enums.SkillLevel;
 import vn.edu.iuh.fit.backend.ids.JobSkillId;
-
-import java.io.Serializable;
-import java.util.Objects;
 
 @Getter
 @Setter

@@ -1,11 +1,9 @@
-package vn.edu.iuh.fit.backend.entities;
+package vn.edu.iuh.fit.backend.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter

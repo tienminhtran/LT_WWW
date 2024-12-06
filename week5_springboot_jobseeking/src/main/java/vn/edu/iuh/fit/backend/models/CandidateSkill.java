@@ -1,4 +1,4 @@
-package vn.edu.iuh.fit.backend.entities;
+package vn.edu.iuh.fit.backend.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
