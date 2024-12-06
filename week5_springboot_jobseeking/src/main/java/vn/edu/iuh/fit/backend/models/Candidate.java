@@ -1,25 +1,25 @@
 package vn.edu.iuh.fit.backend.models;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
-
+@NoArgsConstructor
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "candidate")
-@SuperBuilder
-@PrimaryKeyJoinColumn(name = "can_id")
-public class Candidate extends User{
+public class Candidate {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    private Long id;
+
     @Column(name = "dob", nullable = false)
     private LocalDate dob;
 
@@ -32,26 +32,17 @@ public class Candidate extends User{
     @Column(name = "phone", nullable = false, length = 15)
     private String phone;
 
-    @OneToOne(fetch = FetchType.EAGER, optional = false, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "address", nullable = false)
     private Address address;
 
-    @OneToMany(mappedBy = "candidate", fetch = FetchType.EAGER)
-    private List<CandidateSkill> candidateSkills;
-
-    @OneToMany(mappedBy = "candidate", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<Experience> experiences;
-
-    @Override
-    public String toString() {
-        return "Candidate{" +
-                ", dob=" + dob +
-                ", email='" + email + '\'' +
-                ", fullName='" + fullName + '\'' +
-                ", phone='" + phone + '\'' +
-                ", address=" + address +
-                '}';
+    @OneToMany(mappedBy = "can", fetch = FetchType.LAZY)
+    private List<CandidateSkill> candidateSkills= new ArrayList<>();
+    public Candidate(LocalDate dob, String email, String fullName, String phone, Address address) {
+        this.dob = dob;
+        this.email = email;
+        this.fullName = fullName;
+        this.phone = phone;
+        this.address = address;
     }
 }
-
-

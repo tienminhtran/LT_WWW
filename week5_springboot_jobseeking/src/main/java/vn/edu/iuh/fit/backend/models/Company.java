@@ -1,23 +1,18 @@
 package vn.edu.iuh.fit.backend.models;
 
 import jakarta.persistence.*;
-import lombok.*;
-import lombok.experimental.SuperBuilder;
-
-import java.io.Serializable;
-import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@ToString
 @Entity
-@SuperBuilder
 @Table(name = "company")
-@PrimaryKeyJoinColumn(name = "com_id")
-public class Company extends User implements Serializable {
-
+public class Company {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "comp_id", nullable = false)
+    private Long id;
 
     @Column(name = "about", length = 2000)
     private String about;
@@ -34,20 +29,8 @@ public class Company extends User implements Serializable {
     @Column(name = "web_url")
     private String webUrl;
 
-    @OneToOne(fetch = FetchType.EAGER, optional = false,cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "address", nullable = false)
     private Address address;
 
-    @OneToMany(mappedBy = "company")
-    @ToString.Exclude
-    private List<Job> jobs;
-
-
-    public Company(String about, String email, String compName, String phone, String webUrl) {
-        this.about = about;
-        this.email = email;
-        this.compName = compName;
-        this.phone = phone;
-        this.webUrl = webUrl;
-    }
 }
