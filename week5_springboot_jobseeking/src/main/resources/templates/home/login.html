@@ -16,7 +16,28 @@
             align-items: center;
             justify-content: center;
         }
+        .navbar-custom {
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
 
+        .navbar-nav .nav-link {
+            font-weight: bold;
+            color: #17a2b8;
+            transition: color 0.3s ease-in-out;
+        }
+
+        .nav-item:hover{
+            background-color: #17a2b8;
+        }
+        .nav-link:hover {
+            color: #FFFFFF; /* Blue hover color */
+        }
+
+        .navbar-brand img {
+            max-height: 40px;
+        }
         .card {
             border: none;
             border-radius: 20px;
@@ -81,9 +102,73 @@
             color: #721c24;
             border: 1px solid #f5c6cb;
         }
+
+
+    /*    xu ly diglog*/
+         .window {
+             position: fixed;
+             width: 350px;
+             top: 50%;
+             left: 50%;
+             transform: translate(-50%, -50%);
+             display: none; /* Hidden initially */
+             background-color: #21ceec;
+             border: 1px solid #050505;
+             border-radius: 10px;
+             padding: 15px;
+             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+         }
+        .btn-save {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .btn-save:hover {
+            background-color: #0056b3;
+        }
+        .content text-center p{
+            color: #050505;
+        }
     </style>
 </head>
 <body>
+<nav class="navbar navbar-expand-lg navbar-light navbar-custom fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="#">
+            <img src="https://bluec.vn/wp-content/themes/bluec2019/files/logo.png" alt="Logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">TRANG CHỦ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">CHIA SẺ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">SẢN PHẨM & DỊCH VỤ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">VỀ BLUE C</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="bi bi-search"></i></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/login}">ĐĂNG NHẬP</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6">
@@ -101,6 +186,8 @@
                         </div>
                         <button type="submit" class="btn btn-primary">Đăng nhập</button>
                     </form>
+
+
 <!--                    <div th:if="${error}" class="alert alert-danger text-center mt-4">-->
 <!--                        <p th:text="${error}"></p>-->
 <!--                    </div>-->
@@ -110,5 +197,34 @@
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<div  th:if="${error}"  id="dialog" class="window">
+    <div class="content text-center">
+        <p th:text="${error}" style="color: #050505"></p> <!-- Error message will be dynamically injected -->
+    </div>
+    <div class="text-center">
+        <button onclick="closePopup()" class="btn btn-sm btn-save">Đóng</button>
+    </div>
+</div>
+<script>
+    // Function to close the popup
+    function closePopup() {
+        document.getElementById('dialog').style.display = 'none';
+    }
+
+    // Function to show the popup
+    function showPopup(errorMessage) {
+        const dialog = document.getElementById('dialog');
+        dialog.style.display = 'block';
+        dialog.querySelector('.content b').innerText = errorMessage;
+    }
+
+    // Simulate server-side error display
+    window.onload = function () {
+        const error = "${error}"; // Example: Replace with server-side variable dynamically
+        if (error) {
+            showPopup(error);
+        }
+    };
+</script>
 </body>
 </html>

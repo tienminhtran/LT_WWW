@@ -36,6 +36,8 @@ public class HomeController {
     public String login() {
         return "home/login"; // Trang login
     }
+
+
     @PostMapping("/login")
     public String login(@RequestParam("email") String email, Model model) {
         Candidate candidate = candidateService.findByEmail(email);
@@ -56,4 +58,6 @@ public class HomeController {
         session.invalidate(); // Hủy session hiện tại
         return "redirect:/login"; // Chuyển hướng tới trang login
     }
+
+
 }
