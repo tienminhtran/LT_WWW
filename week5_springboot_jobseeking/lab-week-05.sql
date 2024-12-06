@@ -125,12 +125,12 @@ CREATE TABLE IF NOT EXISTS `skill` (
 
 
 INSERT INTO `address` (`id`, `street`, `city`, `country`, `number`, `zipcode`) VALUES
-(1, 'Rua do Ouro', 'Lisboa', 1, '123', '1100-000'),
-(2, 'Rua da Prata', 'Lisboa', 1, '456', '1100-000'),
-(3, 'Rua Augusta', 'Lisboa', 1, '789', '1100-000'),
-(4, 'Rua do Ouro', 'Porto', 2, '123', '4000-000'),
-(5, 'Rua da Prata', 'Porto', 2, '456', '4000-000'),
-(6, 'Rua Augusta', 'Porto', 2, '789', '4000-000');
+(1, 'Rua do Ouro', 'Lisboa', 1, '123', '1100'),
+(2, 'Rua da Prata', 'Lisboa', 1, '456', '1100'),
+(3, 'Rua Augusta', 'Lisboa', 1, '789', '1100'),
+(4, 'Rua do Ouro', 'Porto', 2, '123', '4000'),
+(5, 'Rua da Prata', 'Porto', 2, '456', '4000'),
+(6, 'Rua Augusta', 'Porto', 2, '789', '4000');
 
 INSERT INTO `candidate` (`id`, `dob`, `email`, `full_name`, `phone`, `address`) VALUES
 (1, '1990-01-01', 'join@gmail.com', 'João Silva', '912345678', 1),
