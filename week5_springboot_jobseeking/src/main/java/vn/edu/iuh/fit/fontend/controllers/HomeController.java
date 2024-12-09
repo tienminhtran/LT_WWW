@@ -36,6 +36,11 @@ public class HomeController {
     public String login() {
         return "home/login"; // Trang login
     }
+    //register
+    @GetMapping("/register")
+    public String register() {
+        return "home/register"; // Trang register
+    }
 
 
     @PostMapping("/login")
