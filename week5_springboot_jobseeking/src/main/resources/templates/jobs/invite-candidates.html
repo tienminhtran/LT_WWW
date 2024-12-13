@@ -4,81 +4,187 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Invite Candidates</title>
-    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/9631/9631363.png" type="image/x-icon">
+    <link rel="icon" href="https://bluec.vn/wp-content/uploads/2022/08/logo-Blue-C-tron-150x150.png" sizes="32x32">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         body {
-            background: linear-gradient(to right, #6a11cb, #2575fc);
-            color: #ffffff;
-            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #f8f9fa;
+            font-family: 'Roboto', sans-serif;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        .container {
-            max-width: 1000px;
-            background: #ffffff;
-            color: #333;
-            border-radius: 12px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-            padding: 2rem;
+        /*.container {*/
+        /*    max-width: 1000px;*/
+        /*    background: #ffffff;*/
+        /*    color: #333;*/
+        /*    border-radius: 12px;*/
+        /*    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);*/
+        /*    padding: 2rem;*/
+        /*}*/
+
+        .navbar-custom {
+            background-color: #fff;
+            border-bottom: 1px solid #ddd;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
         }
 
-        h2, h3 {
-            color: #4e73df;
+        .navbar-nav .nav-link {
             font-weight: bold;
+            color: #17a2b8;
+            transition: color 0.3s ease-in-out;
         }
 
-        .table thead {
-            background-color: #f8f9fc;
+        .nav-link:hover {
+            color: #FFFFFF;
+            background-color: #17a2b8;
         }
 
-        .table tbody tr:hover {
-            background-color: #f1f4f9;
+        .navbar-brand img {
+            max-height: 40px;
+        }
+
+        /* Page Title */
+        h1, h2 {
+            font-size: 2rem;
+            color: #fff;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        /* Form Styles */
+        .card {
+            background: #ffffff;
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+
+        .form-label {
+            color: #4e73df;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .form-control {
+            border: 1.5px solid #d1d3e2;
+            border-radius: 8px;
+            padding: 0.8rem;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: #4e73df;
+            box-shadow: 0 0 5px rgba(78, 115, 223, 0.5);
         }
 
         .btn-primary {
-            background-color: #4e73df;
+            background: #4e73df;
             border: none;
+            font-size: 1.1rem;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
             transition: all 0.3s ease;
         }
 
         .btn-primary:hover {
-            background-color: #375aa7;
+            background: #375aa7;
         }
 
         .btn-secondary {
-            background-color: #adb5bd;
+            background: #adb5bd;
             border: none;
+            font-size: 1rem;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
             transition: all 0.3s ease;
         }
 
         .btn-secondary:hover {
-            background-color: #6c757d;
+            background: #6c757d;
         }
 
-        .alert {
-            font-size: 1.1rem;
-            border-radius: 8px;
+        /* Table Styling */
+        .table {
+            border-radius: 10px;
+            background: #fff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        .table th, .table td {
+            padding: 1rem;
+            text-align: center;
+        }
+        .table th {
+            background-color: #4e73df;
+            color: white;
+        }
+        .table-striped tbody tr:nth-child(odd) {
+            background-color: #f7f9fc;
+        }
+        .table-hover tbody tr:hover {
+            background-color: #e9ecef;
+        }
+        .table td a {
+            margin-right: 5px;
         }
 
-        ul {
-            padding-left: 1rem;
-        }
-
-        ul li {
-            font-size: 0.9rem;
+        /* Custom spacing */
+        .mt-4 {
+            margin-top: 2rem;
         }
     </style>
 </head>
 <body>
-<div class="container mt-5">
-    <h2>Invite Candidates for Job: <span th:text="${job.getJobName()}"></span></h2>
-    <p><strong>Description:</strong> <span th:text="${job.getJobDesc()}"></span></p>
+<nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+    <div class="container">
+        <a class="navbar-brand" href="#">
+            <img src="https://bluec.vn/wp-content/themes/bluec2019/files/logo.png" alt="Logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">TRANG CHỦ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">CHIA SẺ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">SẢN PHẨM & DỊCH VỤ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">VỀ BLUE C</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="bi bi-search"></i></a>
+                </li>
+                <li class="nav-item">
+                    <a th:href="@{/logout}" class="nav-link" >ĐĂNG XUẤT</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
-    <div th:if="${!#lists.isEmpty(candidates)}">
+<div class="container mt-5">
+    <h2>Invite Candidates for Job: <span></span></h2>
+    <p><strong>Description:</strong> </p>
+
+    <div>
         <h3>Suitable Candidates</h3>
         <table class="table table-hover mt-3">
             <thead>
@@ -90,16 +196,17 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="candidate : ${candidates}">
-                <td th:text="${candidate.getFullName()}"></td>
-                <td th:text="${candidate.getEmail()}"></td>
+            <tr>
+                <td>John Doe</td>
+                <td>john.doe@example.com</td>
                 <td>
                     <ul>
-                        <li th:each="skill : ${candidate.candidateSkills}" th:text="${skill.getSkill().getSkillName()}"></li>
+                        <li>Java</li>
+                        <li>Spring Boot</li>
                     </ul>
                 </td>
                 <td>
-                    <form th:action="@{'/jobs/' + ${job.getId()} + '/inviteCandidate/' + ${candidate.getId()}}" method="post">
+                    <form method="post">
                         <button type="submit" class="btn btn-primary">Invite</button>
                     </form>
                 </td>
@@ -109,7 +216,7 @@
     </div>
 
     <!-- Display message if no suitable candidates are found -->
-    <div th:if="${#lists.isEmpty(candidates)}" class="alert alert-info mt-4">
+    <div class="alert alert-info mt-4">
         No suitable candidates found for this job.
     </div>
 
