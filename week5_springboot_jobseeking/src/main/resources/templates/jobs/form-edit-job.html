@@ -2,77 +2,79 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/9631/9631363.png"
-          type="image/x-icon">
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/9631/9631363.png" type="image/x-icon">
     <title>Edit Job</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-          rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <div class="container my-5">
-    <h1 class="mb-4 text-center">Edit Job</h1>
+    <h1 class="mb-4 text-center"> Chỉnh sửa Công việc  </h1>
     <div class="card shadow p-4">
         <!-- Form chỉnh sửa job -->
         <form th:action="@{/jobs/{id}/edit(id=${job.id})}" th:object="${job}" method="post">
             <div class="mb-3">
-                <label for="jobName" class="form-label">Job Name:</label>
-                <input type="text" id="jobName" th:field="*{jobName}" class="form-control"
-                       placeholder="Enter job name" required>
+                <label for="jobName" class="form-label"> Vị trí công việc:</label>
+                <input type="text" id="jobName" th:field="*{jobName}" class="form-control" placeholder="Enter job name" required>
             </div>
 
             <div class="mb-3">
-                <label for="jobDesc" class="form-label">Job Description:</label>
-                <textarea id="jobDesc" th:field="*{jobDesc}" class="form-control" rows="4"
-                          placeholder="Enter job description" required></textarea>
+                <label for="jobDesc" class="form-label"> Mô tả công việc:</label>
+                <textarea id="jobDesc" th:field="*{jobDesc}" class="form-control" rows="4" placeholder="Enter job description" required></textarea>
             </div>
 
             <div class="mb-3 d-flex align-items-center">
-                <label class="form-label"
-                       th:text="'CompanyName: ' + ${job.getCompany().getCompName()}"></label>
-                <input type="hidden" th:field="*{company.id}"
-                       th:value="${job.getCompany().getCompName()}"/>
+                <label class="form-label" th:text="'Tên CÔNG TY: ' + ${job.getCompany().getCompName()}"></label>
+                <input type="hidden" th:field="*{company.id}" th:value="${job.getCompany().getCompName()}"/>
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Required Skills:</label>
-                <div th:each="skill, indexStart : ${skills}" class="mb-5">
-                    <!-- Hiển thị danh sách Skill -->
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox"
-                               th:field="*{jobSkills[__${indexStart.index}__].skill}"
-                               th:value="${skill.id}"
-                               th:checked="${#arrays.contains(job.jobSkills, skill)}"/>
-                        <label class="form-check-label" th:for="skillId"
-                               th:text="${skill.skillName}"></label>
-                    </div>
-                    <!-- Hiển thị Skill Level -->
-                    <div class="d-flex align-items-center mb-2">
-                        <label class="form-label mb-0 me-2" style="white-space: nowrap;">Choice Skill Level:</label>
-                        <select class="form-select"
-                                th:field="*{jobSkills[__${indexStart.index}__].skillLevel}" required>
-                            <option th:each="type : ${T(vn.edu.iuh.fit.backend.enums.SkillLevel).values()}"
-                                    th:value="${type}" th:text="${type}"></option>
-                        </select>
-                    </div>
-                    <!-- Hiển thị More Information -->
-                    <div class="mb-3">
-                        <input type="text" id="moreInfo"
-                               th:field="*{jobSkills[__${indexStart.index}__].moreInfos}"
-                               class="form-control" placeholder="Enter more information"/>
-                    </div>
-                </div>
+                <label class="form-label"> Kỹ năng yêu cầu </label>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Kỹ Năng</th>
+                        <th>Cấp Độ Kỹ Năng</th>
+                        <th>Thông Tin Thêm</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="skill, indexStart : ${skills}">
+                        <td>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" th:field="*{jobSkills[__${indexStart.index}__].skill}" th:value="${skill.id}" th:checked="${#arrays.contains(job.jobSkills, skill)}"/>
+                                <label class="form-check-label" th:for="skillId" th:text="${skill.skillName}"></label>
+                            </div>
+                        </td>
+                        <td>
+                            <select class="form-select" th:field="*{jobSkills[__${indexStart.index}__].skillLevel}" required>
+                                <option th:each="type : ${T(vn.edu.iuh.fit.backend.enums.SkillLevel).values()}"
+                                        th:value="${type}" th:text="${type}"></option>
+                            </select>
+                        </td>
+                        <td>
+                            <input type="text" th:field="*{jobSkills[__${indexStart.index}__].moreInfos}" class="form-control" placeholder="Enter more information"/>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <!-- Section for Adding New Skills -->
                 <div class="mb-4">
                     <div id="newSkillsSection"></div>
                     <button type="button" class="btn btn-outline-primary mt-3" id="add-new-skill">
-                        <i class="bi bi-plus-circle"></i> Add Another Skill
+                        <i class="bi bi-plus-circle"></i> Thêm kỹ năng
                     </button>
                 </div>
             </div>
 
-
             <div class="d-flex justify-content-between">
-                <a th:href="@{/jobs/list}" class="btn btn-secondary">Back to Job List</a>
-                <button type="submit" class="btn btn-primary">Save Changes</button>
+                <a th:href="@{/jobs/list}" class="btn btn-secondary">
+                    <i class="bi bi-arrow-left"></i> Quay lại danh sách công việc
+                </a>
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-save"></i> Lưu Thay Đổi</button>
             </div>
         </form>
     </div>
@@ -83,7 +85,7 @@
     document.getElementById('add-new-skill').addEventListener('click', function () {
         const newSkillsSection = document.getElementById('newSkillsSection');
 
-        // Tạo một div chứa các trường nhập cho kỹ năng mới
+        // Create a div for new skill input fields
         const newSkillEntry = document.createElement('div');
         newSkillEntry.classList.add('new-skill-entry', 'border', 'border-primary', 'rounded', 'p-3', 'mb-3');
 
@@ -103,11 +105,11 @@
             <input type="text" class="form-control" name="newSkillMoreInfos" placeholder="Enter more information">
         `;
 
-        // Thêm trường mới vào khu vực hiển thị kỹ năng
+        // Append new skill entry to the section
         newSkillsSection.appendChild(newSkillEntry);
     });
 
-    // Xóa kỹ năng mới tạo
+    // Remove skill entry
     document.getElementById('newSkillsSection').addEventListener('click', function (e) {
         if (e.target.classList.contains('remove-skill')) {
             const skillEntry = e.target.closest('.new-skill-entry');
