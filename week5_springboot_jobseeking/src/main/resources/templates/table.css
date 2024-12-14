@@ -1,0 +1,17 @@
+.table-hover tbody tr:hover {
+    background-color: #e9ecef;
+}
+.table thead th {
+    background-color: #007bff;
+    color: #ffffff;
+}
+.table th, .table td {
+    text-align: center;
+}
+.table td ul li {
+    text-align: left;
+}
+.actions-buttons {
+    display: flex;
+    gap: 10px;
+}
