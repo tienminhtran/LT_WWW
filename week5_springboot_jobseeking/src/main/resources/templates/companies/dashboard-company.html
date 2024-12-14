@@ -146,6 +146,20 @@
             margin-right: 5px; /* Khoảng cách giữa biểu tượng và text */
         }
 
+    /*    them*/
+        .input-group-text {
+            background-color: #f8f9fa; /* Màu nền nhạt */
+            border-right: 0; /* Xóa đường viền bên phải */
+        }
+        .input-group .form-control {
+            border-left: 0; /* Xóa đường viền bên trái của ô nhập */
+        }
+        .btn-primary {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px; /* Khoảng cách giữa biểu tượng và chữ */
+        }
     </style>
 </head>
 
@@ -220,9 +234,14 @@
 <div class="container mt-5">
     <form th:action="@{/jobs/search}" method="get" class="mb-4">
         <input type="hidden" name="companyId" th:value="${company.id}">
-        <div class="input-group">
+        <div class="input-group mb-3">
+            <span class="input-group-text">
+                <i class="fas fa-search"></i>
+            </span>
             <input type="text" class="form-control" placeholder="Search by job name or skill name" name="query">
-            <button type="submit" class="btn btn-primary">Search</button>
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-search"></i> Search
+            </button>
         </div>
     </form>
 
