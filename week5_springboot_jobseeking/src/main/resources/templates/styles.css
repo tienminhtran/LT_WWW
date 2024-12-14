@@ -1,0 +1,26 @@
+/* styles.css */
+
+/* Navigation bar styling */
+.navbar-custom {
+    background-color: white;
+    border-bottom: 1px solid #ddd;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-nav .nav-link {
+    font-weight: bold;
+    color: #17a2b8;
+    transition: color 0.3s ease-in-out;
+}
+
+.nav-item:hover {
+    background-color: #17a2b8;
+}
+
+.nav-link:hover {
+    color: #FFFFFF;
+}
+
+.navbar-brand img {
+    max-height: 40px;
+}

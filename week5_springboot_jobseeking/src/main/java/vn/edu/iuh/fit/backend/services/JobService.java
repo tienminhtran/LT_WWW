@@ -7,59 +7,62 @@
 package vn.edu.iuh.fit.backend.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import vn.edu.iuh.fit.backend.dtos.JobDTO;
-import vn.edu.iuh.fit.backend.models.*;
-import vn.edu.iuh.fit.backend.repositories.*;
+import vn.edu.iuh.fit.backend.models.Job;
+import vn.edu.iuh.fit.backend.repositories.JobRepository;
 
 import java.util.List;
 
+/*
+ * @description:
+ * @author: Tran Minh Tien
+ * @date:   11/11/2024
+ * @version:    1.0
+ */
 @Service
 public class JobService {
     @Autowired
     private JobRepository jobRepository;
-    @Autowired
-    private CompanyRepository companyRepository;
-    @Autowired
-    private SkillRepository skillRepository;
-    @Autowired
-    private JobSkillRepository jobSkillRepository;
-    @Autowired
-    private CandidateRepository candidateRepository;
-    @Autowired
-    private CandidateSkillRepository candidateSkillRepository;
-    public List<Job> findAll() {
-        return jobRepository.findAll();
+
+    // Tìm tất cả công việc theo trang
+    public Page<Job> findAll(int pageNo, int pageSize, String sortBy, String sortDirection) {
+        Sort sort = Sort.by(Sort.Direction.fromString(sortDirection), sortBy);
+        Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
+        return jobRepository.findAll(pageable);
     }
+    // Tìm công việc theo email của công ty
     public List<Job> findByCompanyWithEmail(String email) {
         return jobRepository.findJobsByCompany_Email(email);
     }
-    public Job save(JobDTO jobDTO) {
-        Company company = companyRepository.findById(jobDTO.getCompanyId()).orElse(null);
-        Job job = new Job();
-        job.setJobName(jobDTO.getJobName());
-        job.setJobDesc(jobDTO.getJobDesc());
-        job.setCompany(company);
-        Job savedJob = jobRepository.save(job);
-        for (Long skillId : jobDTO.getSkillIds()) {
-            Skill skill = skillRepository.findById(skillId).orElse(null);
-            JobSkill jobSkill = new JobSkill();
-            JobSkillId jobSkillId = new JobSkillId();
-            jobSkillId.setJobId(savedJob.getId());
-            jobSkillId.setSkillId(skill.getId());
-            jobSkill.setId(jobSkillId);
-            jobSkill.setJob(savedJob);
-            jobSkill.setSkill(skill);
-            jobSkill.setSkillLevel((byte)1);
-            jobSkill.setMoreInfos("More info");
-            jobSkillRepository.save(jobSkill);
+    // Tìm các công việc theo tên công việc, tên công ty hoặc tên kỹ năng
+    public Page<Job> searchJobs(String search, Pageable pageable) {
+        if (search == null || search.trim().isEmpty()) {
+            return jobRepository.findAll(pageable);
         }
-        return savedJob;
+        return jobRepository.findByJobNameContainingIgnoreCaseOrCompany_CompNameContainingIgnoreCaseOrJobSkills_Skill_SkillNameContainingIgnoreCase(search, search, search, pageable);
     }
+    // Lưu thông tin công việc
+    public Job save(Job job) {
+        return jobRepository.save(job);
+    }
+    // Tìm công việc theo id
     public Job findById(Long id) {
         return jobRepository.findById(id).orElse(null);
     }
+    // Gợi ý công việc cho ứng viên
     public List<Job> recommendJobsForCandidate(String email) {
         return jobRepository.findRecommendedJobsForCandidate(email);
+    }
+    // Xóa công việc theo id
+    public void deleteJobById(Long id) {
+        jobRepository.deleteById(id);
+    }
+    // Tìm công việc theo tên công việc hoặc tên kỹ năng
+    public List<Job> searchJobs(String query, Long companyId) {
+        return jobRepository.searchByJobNameOrSkillName(query, companyId);
     }
 }

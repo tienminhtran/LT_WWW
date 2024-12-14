@@ -3,6 +3,7 @@ package vn.edu.iuh.fit.backend.models;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import vn.edu.iuh.fit.backend.enums.SkillType;
 
 @Getter
 @Setter
@@ -21,6 +22,7 @@ public class Skill {
     private String skillName;
 
     @Column(name = "type")
-    private Byte type;
+    @Enumerated(EnumType.ORDINAL)
+    private SkillType type;
 
 }

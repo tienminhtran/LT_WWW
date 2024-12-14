@@ -17,7 +17,7 @@ C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-<div th:switch="${candidates}" >
+<div th:switch="${candidates}">
     <h2 th:case="null">No candidates yet!</h2>
     <div th:case="*">
         <h2>Candidates</h2>
@@ -46,7 +46,8 @@ C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
                 <td><a th:href="@{/delete/{id}(id=${candidate.id})}">Delete</a></td>
             </tr>
             </tbody>
-        </table></div>
+        </table>
+    </div>
 </div>
 </body>
 </html>

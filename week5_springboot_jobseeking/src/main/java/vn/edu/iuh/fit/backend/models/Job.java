@@ -26,6 +26,6 @@ public class Job {
     @JoinColumn(name = "company")
     private Company company;
 
-    @OneToMany(mappedBy = "job", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "job", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<JobSkill> jobSkills;
 }

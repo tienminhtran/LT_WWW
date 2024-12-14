@@ -1,23 +1,109 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Recommended Jobs</title>
+    <title>Dashboard Candidate</title>
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/9631/9631363.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .navbar-custom {
+            background-color: #007bff;
+        }
+        .navbar-custom .nav-link,
+        .navbar-custom .dropdown-item {
+            color: #000 !important;
+        }
+        .navbar-custom .dropdown-menu {
+            border-radius: 8px;
+            background-color: azure;
+        }
+        .navbar-custom .dropdown-item {
+            color: #007bff;
+        }
+        .navbar-custom .dropdown-item:hover {
+            background-color: #007bff;
+            color: #ffffff;
+        }
+        .btn-primary {
+            border-radius: 5px;
+            margin: 5px;
+        }
+        .btn-danger {
+            border-radius: 5px;
+            margin: 5px;
+        }
+        .alert-warning {
+            border-radius: 8px;
+        }
+        .card-title a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .card-title a:hover {
+            text-decoration: underline;
+        }
+        .dropdown-item:hover {
+            background-color: #007bff;
+            color: #ffffff;
+        }
+        .dropdown-item {
+            background-color: azure;
+            color: #007bff;
+        }
+        alert {
+            font-size: 0.9rem;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .alert img.icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+    </style>
 </head>
 <body>
-<div class="container mt-5">
-    <div class="text-center mb-4">
-        <h1>Welcome, <span th:text="${candidate.fullName}">Candidate</span></h1>
-        <button class="btn btn-primary">Edit Profile</button>
-        <a class="btn btn-primary"
-           th:href="@{/skills/recommend/{candidateId}(candidateId=${candidate.id})}">
-            Skill Recommendations
-        </a>
-        <a class="btn btn-danger" th:href="@{/logout}">Logout</a>
+<nav class="navbar navbar-expand-lg navbar-custom mb-4">
+    <div class="container-fluid">
+        <a class="navbar-brand text-white" href="#">Job Portal</a>
+        <div class="collapse navbar-collapse justify-content-end">
+            <a class="btn btn-primary"
+               th:href="@{/skills/recommend/{candidateId}(candidateId=${candidate.id})}">
+                Skill Recommendations
+            </a>
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    Welcome, <span th:text="${candidate.fullName}">Candidate</span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" th:href="@{/edit/{id}(id=${candidate.id})}">Edit Profile</a></li>
+                    <li><a class="dropdown-item" th:href="@{/logout}">Logout</a></li>
+                </ul>
+            </div>
+        </div>
     </div>
-    <h3 class="text-center">Job Recommendations</span></h3>
+</nav>
 
+<div class="container mt-5">
+    <!-- Success message -->
+    <div th:if="${successMessage}" class="alert alert-success text-center" role="alert">
+        <img src="https://cdn-icons-png.flaticon.com/512/845/845646.png" alt="Success" class="icon">
+        <span th:text="${successMessage}"></span>
+    </div>
+    <!-- Error message -->
+    <div th:if="${errorMessage}" class="alert alert-danger text-center">
+        <img src="https://cdn-icons-png.flaticon.com/512/1828/1828843.png" alt="Error" class="icon">
+        <span th:text="${errorMessage}"></span>
+    </div>
+    <h3 class="text-center mb-4">Job Recommendations</h3>
     <div th:if="${#lists.isEmpty(jobs)}" class="alert alert-warning text-center mt-4">
         No job recommendations found.
     </div>
@@ -36,5 +122,7 @@
         </div>
     </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -17,11 +17,18 @@ import vn.edu.iuh.fit.backend.services.SkillService;
 
 import java.util.List;
 
+/*
+ * @description:
+ * @author: Tran Minh Tien
+ * @date:   11/11/2024
+ * @version:    1.0
+ */
 @Controller
 @RequestMapping("/skills")
 public class SkillController {
     @Autowired
     private SkillService skillService;
+    // Hiển thị danh sách kỹ năng được đề xuất cho ứng viên
     @GetMapping("/recommend/{candidateId}")
     public String recommendSkills(@PathVariable Long candidateId, Model model) {
         List<Skill> recommendedSkills = skillService.recommendSkillsForCandidate(candidateId);

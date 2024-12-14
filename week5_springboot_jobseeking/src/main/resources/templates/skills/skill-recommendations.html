@@ -1,85 +1,203 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Suggested Skills</title>
-    <link rel="icon" href="https://bluec.vn/wp-content/uploads/2022/08/logo-Blue-C-tron-150x150.png" sizes="32x32">    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Recruitment and job search</title>
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/9631/9631363.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <style>
         body {
-            background: linear-gradient(to right, #f9f9f9, #e0e0e0);
+            background-color: #f0f2f5;
             font-family: 'Arial', sans-serif;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        }
+        .header, .search-bar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: #f0f2f5;
+            padding: 10px 0;
         }
 
-        .container {
-            background: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-            padding: 2rem;
-            max-width: 800px;
-        }
-
-        h2 {
-            color: #007bff;
-            font-weight: bold;
-            margin-bottom: 1.5rem;
-        }
-
-        .list-group-item {
+        .card {
             border: none;
-            border-bottom: 1px solid #ddd;
-            padding: 1.5rem 1rem;
-            transition: background-color 0.3s ease;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s, box-shadow 0.3s;
         }
 
-        .list-group-item:hover {
-            background-color: #f1f1f1;
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
         }
 
-        .badge-primary {
-            background-color: #4e73df;
-            font-size: 0.9rem;
+        .job-list {
+            max-height: calc(100vh - 200px);
+            overflow-y: auto;
+            margin-top: 20px;
+            scrollbar-width: none; /* Ẩn trên Firefox */
+            -ms-overflow-style: none;
+        }
+
+        .job-details {
+            display: none;
+        }
+
+        .icon {
+            width: 25px;
+            height: 25px;
+            margin-right: 8px;
         }
 
         .btn-secondary {
             background-color: #6c757d;
             border: none;
-            transition: background-color 0.3s ease;
+            font-weight: bold;
         }
 
-        .btn-secondary:hover {
-            background-color: #5a6268;
+        .btn-primary {
+            background-color: #0056b3;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #004494;
+        }
+
+        .pagination .page-item.active .page-link {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        .card-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .card-text {
+            font-size: 14px;
+            color: #555;
+        }
+
+        .footer {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+
+        .footer a {
+            color: #ffdd57;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <h2>Skills Recommended for You</h2>
-
-    <!-- Hiển thị khi không có kỹ năng được đề xuất -->
-    <div th:if="${#lists.isEmpty(recommendedSkills)}" class="text-center">
-        <p class="text-muted">No skills recommended at this time.</p>
+<div class="container pt-4">
+    <!-- Header -->
+    <div class="header text-center">
+        <h1>Job Finder Platform</h1>
+        <p>Your dream job is just a click away!</p>
     </div>
 
-    <!-- Danh sách kỹ năng được đề xuất -->
-    <div th:if="${!#lists.isEmpty(recommendedSkills)}">
-        <ul class="list-group">
-            <li th:each="skill : ${recommendedSkills}" class="list-group-item">
-                <h5 th:text="${skill.skillName}" class="mb-2">Skill Name</h5>
-                <p th:text="${skill.skillDescription}" class="text-muted">Skill Description</p>
-                <span class="badge badge-primary" th:text="${skill.type}">Skill Type</span>
+    <!-- Search Bar -->
+    <div class="search-bar row align-items-center mb-4">
+        <div class="col-md-8">
+            <form th:action="@{/search}" method="get">
+                <div class="input-group">
+                    <input type="text" name="search" class="form-control"
+                           placeholder="🔍 Search by job name, company, or skills"
+                           aria-label="Search" th:value="${search}">
+                    <button class="btn btn-primary" type="submit">Search</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-4 text-end">
+            <!-- Nút Thống kê -->
+            <a th:href="@{/stats}" class="btn btn-info me-2">📊 Statistics</a>
+            <a th:href="@{/login}" class="btn btn-light me-2"><i class="fas fa-sign-in-alt"></i> Login</a>
+            <div class="btn-group">
+                <button class="btn btn-light dropdown-toggle" type="button" id="registerDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-user-plus"></i> Register
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="registerDropdown">
+                    <li><a class="dropdown-item" th:href="@{/signup}">Candidate</a></li>
+                    <li><a class="dropdown-item" th:href="@{/companies/register}">Company</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Job List -->
+    <div class="job-list">
+        <div class="row">
+            <div th:each="job : ${jobPage.content}" class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${job.jobName}"></h5>
+                        <p class="card-text">
+                            <img src="https://cdn-icons-png.flaticon.com/512/2933/2933791.png" alt="Salary" class="icon">
+                            <span th:text="${job.jobDesc}"></span>
+                        </p>
+                        <p class="card-text">
+                            <img src="https://cdn-icons-png.flaticon.com/512/684/684908.png" alt="Address" class="icon">
+                            <span th:text="${job.company.address.getAddress()}"></span>
+                        </p>
+                        <button class="btn btn-secondary" th:onclick="|toggleDetails('job-details-' + ${job.id})|">Details</button>
+                        <div th:id="'job-details-' + ${job.id}" class="job-details mt-3">
+                            <p class="card-text"><strong>Required Skills:</strong></p>
+                            <ul>
+                                <li th:each="jobSkill : ${job.jobSkills}">
+                                    <span th:text="${jobSkill.skill.skillName}"></span> - <span th:text="${jobSkill.skillLevel}"></span>
+                                    <p th:text="${jobSkill.moreInfos}"></p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pagination -->
+    <nav aria-label="Page navigation" class="mt-4">
+        <ul class="pagination justify-content-center">
+            <li class="page-item" th:classappend="${jobPage.hasPrevious()} ? '' : 'disabled'">
+                <a class="page-link" th:href="@{/search(size=${jobPage.size}, page=${jobPage.number - 1}, search=${search})}" aria-label="Previous">
+                    &laquo;
+                </a>
+            </li>
+            <li th:each="pageNumber : ${pageNumbers}" class="page-item" th:classappend="${pageNumber == jobPage.number + 1} ? 'active' : ''">
+                <a class="page-link" th:href="@{/search(size=${jobPage.size}, page=${pageNumber - 1}, search=${search})}" th:text="${pageNumber}"></a>
+            </li>
+            <li class="page-item" th:classappend="${jobPage.hasNext()} ? '' : 'disabled'">
+                <a class="page-link" th:href="@{/search(size=${jobPage.size}, page=${jobPage.number + 1}, search=${search})}" aria-label="Next">
+                    &raquo;
+                </a>
             </li>
         </ul>
-    </div>
+    </nav>
 
-    <div class="text-center mt-4">
-        <a th:href="@{/jobs/recommendations}" class="btn btn-secondary">Back to Dashboard</a>
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; 2024 Job Finder | Designed with ❤️ by Tran Hien Vinh</p>
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script>
+    function toggleDetails(id) {
+        var element = document.getElementById(id);
+        if (element) {
+            element.style.display = element.style.display === "block" ? "none" : "block";
+        }
+    }
+</script>
 </body>
 </html>

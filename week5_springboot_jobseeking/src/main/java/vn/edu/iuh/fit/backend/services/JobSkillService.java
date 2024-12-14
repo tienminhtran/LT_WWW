@@ -14,15 +14,22 @@ import vn.edu.iuh.fit.backend.repositories.JobSkillRepository;
 
 import java.util.List;
 
-
+/*
+ * @description:
+ * @author: Tran Minh Tien
+ * @date:   11/11/2024
+ * @version:    1.0
+ */
 @Service
 public class JobSkillService {
     @Autowired
     private JobSkillRepository jobSkillRepository;
 
+    // Lưu thông tin kỹ năng công việc
     public void save(JobSkill jobSkill) {
         jobSkillRepository.save(jobSkill);
     }
+    // Tìm kỹ năng công việc theo công việc
     public List<JobSkill> findByJob(Job job) {
         return jobSkillRepository.findByJob(job);
     }

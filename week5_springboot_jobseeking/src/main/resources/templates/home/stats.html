@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Stats</title>
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/9631/9631363.png" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to bottom right, #f8f9fa, #e9ecef);
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            padding: 20px;
+            max-width: 1200px;
+            margin: auto;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        hr {
+            border: none;
+            border-top: 2px solid #e9ecef;
+            margin: 20px 0;
+        }
+
+        /* Nút */
+        .btn-container {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .btn {
+            margin: 0 10px;
+            padding: 12px 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            border-radius: 25px;
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: linear-gradient(135deg, #0056b3, #007bff);
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Nút được chọn */
+        .btn.active {
+            background: linear-gradient(135deg, #28a745, #218838); /* Màu xanh đậm */
+            box-shadow: 0px 4px 10px rgba(0, 128, 0, 0.3);
+            color: #ffffff;
+        }
+
+        .chart-container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 20px auto;
+        }
+
+        canvas {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>📊 Statistics</h1>
+    <hr>
+
+    <!-- Nút chọn biểu đồ -->
+    <div class="btn-container">
+        <button class="btn" onclick="showJobSkillsChart()">Top kỹ năng được tuyển dụng nhiều nhất</button>
+        <button class="btn" onclick="showCandidateSkillsChart()">Top kỹ năng phổ biến của ứng viên</button>
+    </div>
+
+    <!-- Biểu đồ -->
+    <div class="chart-container">
+        <canvas id="dynamicChart"></canvas>
+    </div>
+</div>
+
+<script th:inline="javascript">
+    // Dữ liệu kỹ năng công việc
+    const jobSkillsLabels = /*[[${topSkillsInJobs.keySet()}]]*/;
+    const jobSkillsCounts = /*[[${topSkillsInJobs.values()}]]*/;
+
+    // Dữ liệu kỹ năng ứng viên
+    const candidateSkillsLabels = /*[[${topSkillsInCandidates.keySet()}]]*/;
+    const candidateSkillsCounts = /*[[${topSkillsInCandidates.values()}]]*/;
+
+    function generateColors(length) {
+        const colors = [];
+        const baseColors = ['#007bff', '#6f42c1', '#20c997', '#ffc107', '#dc3545'];
+        for (let i = 0; i < length; i++) {
+            const color = baseColors[i % baseColors.length];
+            colors.push(color);
+        }
+        return colors;
+    }
+
+    // Biểu đồ động
+    const ctx = document.getElementById('dynamicChart').getContext('2d');
+    let dynamicChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: jobSkillsLabels,
+            datasets: [{
+                label: 'Số lượng công việc yêu cầu',
+                data: jobSkillsCounts,
+                backgroundColor: generateColors(jobSkillsCounts.length),
+                borderColor: '#fff',
+                borderWidth: 2,
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    labels: {
+                        font: {
+                            size: 16,
+                            family: 'Arial',
+                            weight: 'bold'
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        font: {
+                            size: 14,
+                            family: 'Arial',
+                        },
+                        color: '#333'
+                    }
+                },
+                x: {
+                    ticks: {
+                        font: {
+                            size: 14,
+                            family: 'Arial',
+                        },
+                        color: '#333'
+                    }
+                }
+            },
+            interaction: {
+                mode: 'nearest',
+                intersect: false
+            }
+        }
+    });
+
+    // Lấy danh sách tất cả các nút
+    const buttons = document.querySelectorAll('.btn');
+
+    function setActiveButton(clickedButton) {
+        // Loại bỏ lớp 'active' khỏi tất cả các nút
+        buttons.forEach(button => button.classList.remove('active'));
+
+        // Thêm lớp 'active' vào nút được nhấn
+        clickedButton.classList.add('active');
+    }
+
+    // Chuyển đổi biểu đồ
+    function showJobSkillsChart() {
+        setActiveButton(document.querySelector('button[onclick="showJobSkillsChart()"]')); // Đặt nút này là 'active'
+
+        dynamicChart.data.labels = jobSkillsLabels;
+        dynamicChart.data.datasets[0].data = jobSkillsCounts;
+        dynamicChart.data.datasets[0].label = 'Số lượng công việc yêu cầu';
+        dynamicChart.data.datasets[0].backgroundColor = generateColors(jobSkillsCounts.length);
+        dynamicChart.update();
+    }
+
+    function showCandidateSkillsChart() {
+        setActiveButton(document.querySelector('button[onclick="showCandidateSkillsChart()"]')); // Đặt nút này là 'active'
+
+        dynamicChart.data.labels = candidateSkillsLabels;
+        dynamicChart.data.datasets[0].data = candidateSkillsCounts;
+        dynamicChart.data.datasets[0].label = 'Số lượng ứng viên có';
+        dynamicChart.data.datasets[0].backgroundColor = generateColors(candidateSkillsCounts.length);
+        dynamicChart.update();
+    }
+</script>
+</body>
+</html>

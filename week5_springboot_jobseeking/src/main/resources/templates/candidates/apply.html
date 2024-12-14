@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Job Application</title>
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/9631/9631363.png" type="image/x-icon">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .email-container {
+      max-width: 700px;
+      margin: auto;
+      padding: 30px;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+      background-color: #f9f9f9;
+    }
+    .email-header {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    .email-body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .email-body p {
+      margin: 15px 0;
+      color: #555;
+    }
+    .label {
+      font-weight: 600;
+      margin-right: 5px;
+      color: #333;
+    }
+    .notification {
+      margin-bottom: 20px;
+    }
+    .notification.alert {
+      border-radius: 8px;
+    }
+    .btn-back {
+      background-color: #e0e0e0;
+      border-color: #ccc;
+      color: #333;
+      transition: background-color 0.3s;
+    }
+    .btn-back:hover {
+      background-color: #d6d6d6;
+    }
+    .form-control, .form-label {
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <!-- Display success or error messages -->
+  <div th:if="${successMessage}" class="alert alert-success notification" role="alert">
+    <span th:text="${successMessage}"></span>
+  </div>
+  <div th:if="${errorMessage}" class="alert alert-danger notification" role="alert">
+    <span th:text="${errorMessage}"></span>
+  </div>
+
+  <div class="email-container">
+    <h2 class="email-header">Job Application</h2>
+    <div class="email-body">
+      <p><span class="label">Name:</span> <span th:text="${candidate.fullName}"></span></p>
+      <p><span class="label">Email:</span> <span th:text="${candidate.email}"></span></p>
+      <p><span class="label">Phone:</span> <span th:text="${candidate.phone}"></span></p>
+      <p><span class="label">Date of Birth:</span> <span th:text="${candidate.dob}"></span></p>
+      <p><span class="label">Address:</span>
+        <span th:text="${candidate.address.number}"></span>,
+        <span th:text="${candidate.address.street}"></span>,
+        <span th:text="${candidate.address.city}"></span>,
+        <span th:text="${candidate.address.zipcode}"></span>,
+        <span th:text="${candidate.address.country}"></span>
+      </p>
+      <h4 class="mt-4">Skills:</h4>
+      <ul>
+        <li th:each="skill : ${candidate.candidateSkills}">
+          <span th:text="${skill.skill.skillName}"></span> - Level: <span th:text="
+            ${skill.skillLevel == 1 ? 'BEGINNER' :
+            skill.skillLevel == 2 ? 'INTERMEDIATE' :
+            skill.skillLevel == 3 ? 'ADVANCED' :
+            skill.skillLevel == 4 ? 'PROFESSIONAL' :
+            skill.skillLevel == 5 ? 'MASTER' : 'Unknown'}"></span>
+        </li>
+      </ul>
+      <h4 class="mt-4">Experience:</h4>
+      <ul>
+        <li th:each="exp : ${candidate.experiences}">
+          <strong th:text="${exp.companyName}"></strong>
+          <span th:text="'(from ' + ${exp.fromDate} + ' to ' + ${exp.toDate} + ')'"></span><br>
+          <span class="label">Role:</span> <span th:text="${exp.role}"></span><br>
+          <span class="label">Description:</span> <span th:text="${exp.workDescription}"></span>
+        </li>
+      </ul>
+      <!-- Form to submit the application -->
+      <form th:action="@{sendApply}" method="post">
+        <input type="hidden" name="jobId" th:value="${jobId}">
+        <input type="hidden" name="applicantName" th:value="${candidate.fullName}">
+        <input type="hidden" name="email" th:value="${candidate.email}">
+        <div class="mb-3">
+          <label for="message" class="form-label">Message:</label>
+          <textarea class="form-control" id="message" name="message" rows="3" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Send Application</button>
+      </form>
+      <!-- Back button -->
+      <a th:href="@{/jobs/details/{id}(id=${job.id})}" class="btn btn-back w-100 mt-3">Back to Job Details</a>
+    </div>
+  </div>
+</div>
+</body>
+</html>

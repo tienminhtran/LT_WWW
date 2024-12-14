@@ -15,7 +15,12 @@ import vn.edu.iuh.fit.backend.models.Skill;
 
 import java.util.List;
 
-
+/*
+ * @description:
+ * @author: Tran Minh Tien
+ * @date:   11/11/2024
+ * @version:    1.0
+ */
 @Repository
 public interface SkillRepository extends JpaRepository<Skill, Long> {
     // Tìm các kỹ năng mà ứng viên có dựa trên id của ứng viên,
@@ -24,4 +29,6 @@ public interface SkillRepository extends JpaRepository<Skill, Long> {
     @Query("SELECT s FROM Skill s WHERE s NOT IN " +
             "(SELECT cs.skill FROM CandidateSkill cs WHERE cs.can.id = :candidateId)")
     List<Skill> findSkillsNotInCandidateSkills(@Param("candidateId") Long candidateId, Pageable pageable);
+    // Tìm kỹ năng theo tên kỹ năng
+    Skill findBySkillName(String skillName);
 }
