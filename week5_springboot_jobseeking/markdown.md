@@ -26,7 +26,6 @@ Hedisql là một công cụ mạnh mẽ cho phép bạn lưu trữ dữ liệu 
 -	**JobSkill** (Kỹ năng công việc): Lưu trữ các kỹ năng cần có cho công việc.
 -	**JobSkillID** (ID kỹ năng công việc): Mối quan hệ giữa công việc và kỹ năng cần có.
 -	**Skill** (Kỹ năng): Lưu trữ thông tin về các kỹ năng mà ứng viên và công ty có thể yêu cầu.
- 
 
 ## 3. Thực hiện
 
@@ -50,4 +49,6 @@ Hedisql là một công cụ mạnh mẽ cho phép bạn lưu trữ dữ liệu 
 -	**JobService** đã thực hiện rất tốt các chức năng quản lý công việc như tìm kiếm, phân trang, lưu, xóa và gợi ý công việc.
 -	**JobSkillService** có cấu trúc rất đơn giản và rõ ràng với các phương thức như save để lưu thông tin kỹ năng công việc và findByJob để tìm các kỹ năng của một công việc cụ thể.
 -	****SkillService** này quản lý các thao tác liên quan đến kỹ năng trong hệ thống. Nó bao gồm các phương thức để tìm kiếm, lưu trữ và đề xuất kỹ năng cho ứng viên. Lớp này hoạt động với **SkillRepository**, sử dụng các tính năng của Spring Data JPA
--	**StatsService** cung cấp các chức năng thống kê về kỹ năng, sử dụng các câu truy vấn và xử lý kết quả rất hợp lý. 
+-	**StatsService** cung cấp các chức năng thống kê về kỹ năng, sử dụng các câu truy vấn và xử lý kết quả rất hợp lý.
+
+## 4. Giao diện
