@@ -3,8 +3,81 @@
 <head>
     <title>Edit Candidate</title>
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/9631/9631363.png" type="image/x-icon">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .navbar-custom {
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .navbar-nav .nav-link {
+            font-weight: bold;
+            color: #17a2b8;
+            transition: color 0.3s ease-in-out;
+        }
+        .nav-item:hover {
+            background-color: #17a2b8;
+            /*    */
+        }
+        .nav-link:hover {
+            color: #FFFFFF; /* Blue hover color */
+        }
+        .navbar-brand img {
+            max-height: 40px;
+        }
+        .btn-primary {
+            background-color: #0056b3;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .btn-primary:hover {
+            background-color: #004085;
+        }
+        .btn-danger {
+            background-color: #dc3545;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .card-body {
+            padding: 20px;
+        }
+        .card-title a {
+            color: #0056b3;
+            text-decoration: none;
+        }
+        .card-title a:hover {
+            text-decoration: underline;
+            color: #003366;
+        }
+        .alert {
+            border-radius: 8px;
+        }
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+
+
+
         .form-section {
             margin-bottom: 30px;
         }
@@ -77,6 +150,56 @@
     </style>
 </head>
 <body class="bg-light">
+<nav class="navbar navbar-expand-lg navbar-light navbar-custom fixed-top"->
+    <div class="container">
+        <a class="navbar-brand" href="/">
+            <img src="https://bluec.vn/wp-content/themes/bluec2019/files/logo.png" alt="Logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">TRANG CHỦ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">CHIA SẺ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">SẢN PHẨM & DỊCH VỤ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">VỀ BLUE C</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="bi bi-search"></i></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/login}">ĐĂNG NHẬP</a>
+                </li>
+                <li class="nav-item">
+                    <div class="collapse navbar-collapse justify-content-end">
+                        <div class="btn-group">
+                            <button type="button" class="nav-link" data-bs-toggle="dropdown" aria-expanded="false">
+                                <!--                               https://cdn-icons-png.flaticon.com/512/3437/3437393.png-->
+                                <img src="https://cdn-icons-png.flaticon.com/512/3437/3437393.png" style="width: 20px; height: 20px">
+                                <span th:text="${candidate.fullName}"></span>
+                                \/
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" th:href="@{/edit/{id}(id=${candidate.id})}">Edit Company</a></li>
+                                <li><a class="dropdown-item" th:href="@{/logout}">Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
 <div class="container mt-5">
     <div th:if="${errorMessage}" class="alert alert-danger">
         <p th:text="${errorMessage}"></p>
@@ -85,7 +208,7 @@
         <div class="col-md-10">
             <div class="card">
                 <div class="card-header text-center">
-                    <h1 class="text-primary">Edit Candidate</h1>
+<!--                    <h1 class="text-primary">Edit Candidate</h1>-->
                 </div>
                 <div class="card-body">
                     <form th:action="@{/edit/{id}(id=${candidate.id})}" method="post">
@@ -93,17 +216,17 @@
                         <div class="form-section">
                             <div class="container mt-5">
                                 <div class="slanted-header">
-                                    <h5>Personal Information</h5>
+                                    <h5>Thông tin cá nhân</h5>
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <div class="col-md-4">
-                                    <label for="fullName" class="form-label">Full Name:</label>
+                                    <label for="fullName" class="form-label">Họ và tên đầy đủ:</label>
                                     <input type="text" id="fullName" name="fullName" class="form-control"
                                            th:value="${candidate.fullName}" required>
                                 </div>
                                 <div class="col-md-4">
-                                    <label for="dob" class="form-label">Date of Birth:</label>
+                                    <label for="dob" class="form-label">Ngày sinh:</label>
                                     <input type="date" id="dob" name="dob" class="form-control"
                                            th:value="${candidate.dob}" required>
                                 </div>
@@ -113,7 +236,7 @@
                                            th:value="${candidate.email}" required>
                                 </div>
                                 <div class="col-md-4">
-                                    <label for="phone" class="form-label">Phone:</label>
+                                    <label for="phone" class="form-label">Điện thoại:</label>
                                     <input type="text" id="phone" name="phone" class="form-control"
                                            th:value="${candidate.phone}" required>
                                 </div>
@@ -124,32 +247,34 @@
                         <div class="form-section">
                             <div class="container mt-5">
                                 <div class="slanted-header">
-                                    <h5>Address</h5>
+                                    <h5>Địa chỉ</h5>
                                 </div>
                             </div>
                             <div class="row mb-5">
                                 <div class="col-md-4">
-                                    <label for="street" class="form-label">Street:</label>
-                                    <input type="text" id="street" name="address.street" class="form-control"
-                                           th:value="${candidate.address.street}" required>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="number" class="form-label">Number:</label>
+                                    <label for="number" class="form-label">Số:</label>
                                     <input type="text" id="number" name="address.number" class="form-control"
                                            th:value="${candidate.address.number}" required>
                                 </div>
+
                                 <div class="col-md-4">
-                                    <label for="city" class="form-label">City:</label>
+                                    <label for="street" class="form-label">Đường:</label>
+                                    <input type="text" id="street" name="address.street" class="form-control"
+                                           th:value="${candidate.address.street}" required>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label for="city" class="form-label">Thành phố:</label>
                                     <input type="text" id="city" name="address.city" class="form-control"
                                            th:value="${candidate.address.city}" required>
                                 </div>
                                 <div class="col-md-4">
-                                    <label for="zipcode" class="form-label">Zip Code:</label>
+                                    <label for="zipcode" class="form-label">Mã bưu chính:</label>
                                     <input type="text" id="zipcode" name="address.zipcode" class="form-control"
                                            th:value="${candidate.address.zipcode}" required>
                                 </div>
                                 <div class="col-md-4">
-                                    <label for="country" class="form-label">Country:</label>
+                                    <label for="country" class="form-label">Quốc gia:</label>
                                     <select id="country" name="address.country" class="form-select" required>
                                         <option th:each="country : ${countries}"
                                                 th:value="${country.alpha2}"
@@ -166,14 +291,14 @@
                         <div class="form-section">
                             <div class="container mt-5">
                                 <div class="slanted-header">
-                                    <h5>Skill</h5>
+                                    <h5>Kỹ năng bạn có </h5>
                                 </div>
                             </div>
                             <div id="skills-section">
                                 <div th:each="candidateSkill, iterStat : ${candidate.candidateSkills}" class="mb-4">
                                     <div class="row mb-3">
                                         <div class="col-md-4">
-                                            <label th:for="'skill-' + ${iterStat.index}" class="form-label">Skill:</label>
+                                            <label th:for="'skill-' + ${iterStat.index}" class="form-label">Kỹ năng:</label>
                                             <select th:id="'skill-' + ${iterStat.index}" name="skillIds" class="form-select">
                                                 <option th:each="skill : ${skills}"
                                                         th:value="${skill.id}"
@@ -182,7 +307,7 @@
                                             </select>
                                         </div>
                                         <div class="col-md-4">
-                                            <label th:for="'skill-' + ${iterStat.index} + '-level'" class="form-label mt-2">Skill Level:</label>
+                                            <label th:for="'skill-' + ${iterStat.index} + '-level'" class="form-label mt-2">Trình độ kỹ năng:</label>
                                             <select th:id="'skill-' + ${iterStat.index} + '-level'" name="skillLevels" class="form-select">
                                                 <option value="1" th:selected="${candidateSkill.skillLevel == 1}">Beginner</option>
                                                 <option value="2" th:selected="${candidateSkill.skillLevel == 2}">Intermediate</option>
@@ -192,7 +317,7 @@
                                             </select>
                                         </div>
                                         <div class="col-md-4 mt-3">
-                                            <label th:for="'moreInfo-' + ${iterStat.index}" class="form-label">More Information:</label>
+                                            <label th:for="'moreInfo-' + ${iterStat.index}" class="form-label">Thông tin thêm:</label>
                                             <textarea th:id="'moreInfo-' + ${iterStat.index}"
                                                       th:name="${candidateSkill.moreInfos != null ? 'moreInfos' : 'newSkillDetails'}"
                                                       class="form-control"
@@ -204,27 +329,28 @@
                                 </div>
                             </div>
                             <div id="newSkillsSection"></div>
-                            <button type="button" class="btn btn-add mt-3" id="add-new-skill">Add Another Skill</button>
+                            <button type="button" class="btn btn-add mt-3" id="add-new-skill">Thêm kỹ năng</button>
 
 
                         <!-- Experiences -->
                         <div class="form-section">
                             <div class="container mt-5">
                                 <div class="slanted-header">
-                                    <h5>Experiences</h5>
+                                    <h5> Kinh nghiệm làm ở Công ty/ vị trí </h5>
                                 </div>
-                            </div>                            <div id="experiences-section">
+                            </div>
+                            <div id="experiences-section">
                                 <div th:each="experience, iterStat : ${candidate.experiences}" class="mb-4">
                                     <input type="hidden" th:name="'experiences[' + ${iterStat.index} + '].id'" th:value="${experience.id}" />
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <label th:for="'experience-' + ${iterStat.index} + '-company'" class="form-label">Company Name:</label>
+                                            <label th:for="'experience-' + ${iterStat.index} + '-company'" class="form-label">Tên công ty:</label>
                                             <input type="text" th:id="'experience-' + ${iterStat.index} + '-company'"
                                                    th:name="'experiences[' + ${iterStat.index} + '].companyName'"
                                                    class="form-control" th:value="${experience.companyName}">
                                         </div>
                                         <div class="col-md-6">
-                                            <label th:for="'experience-' + ${iterStat.index} + '-role'" class="form-label mt-2">Role:</label>
+                                            <label th:for="'experience-' + ${iterStat.index} + '-role'" class="form-label mt-2">Vị trí</label>
                                             <input type="text" th:id="'experience-' + ${iterStat.index} + '-role'"
                                                    th:name="'experiences[' + ${iterStat.index} + '].role'"
                                                    class="form-control" th:value="${experience.role}">
@@ -232,13 +358,13 @@
                                     </div>
                                     <div class="row mt-3">
                                         <div class="col-md-6">
-                                            <label th:for="'experience-' + ${iterStat.index} + '-fromDate'" class="form-label">From Date:</label>
+                                            <label th:for="'experience-' + ${iterStat.index} + '-fromDate'" class="form-label">Từ ngày:</label>
                                             <input type="date" th:id="'experience-' + ${iterStat.index} + '-fromDate'"
                                                    th:name="'experiences[' + ${iterStat.index} + '].fromDate'"
                                                    class="form-control" th:value="${experience.fromDate}">
                                         </div>
                                         <div class="col-md-6">
-                                            <label th:for="'experience-' + ${iterStat.index} + '-toDate'" class="form-label">To Date:</label>
+                                            <label th:for="'experience-' + ${iterStat.index} + '-toDate'" class="form-label">Đến ngày :</label>
                                             <input type="date" th:id="'experience-' + ${iterStat.index} + '-toDate'"
                                                    th:name="'experiences[' + ${iterStat.index} + '].toDate'"
                                                    class="form-control" th:value="${experience.toDate}">
@@ -246,7 +372,7 @@
                                     </div>
                                     <div class="row mt-3">
                                         <div class="col-md-12">
-                                            <label th:for="'experience-' + ${iterStat.index} + '-workDescription'" class="form-label">Work Description:</label>
+                                            <label th:for="'experience-' + ${iterStat.index} + '-workDescription'" class="form-label">Mô tả công việc:</label>
                                             <textarea th:id="'experience-' + ${iterStat.index} + '-workDescription'"
                                                       th:name="'experiences[' + ${iterStat.index} + '].workDescription'"
                                                       class="form-control" th:text="${experience.workDescription}"></textarea>
@@ -254,17 +380,18 @@
                                     </div>
                                 </div>
                                 <div id="newExperiencesSection"></div>
-                                <button type="button" class="btn btn-add mt-3" id="add-new-experience">Add Another Experience</button>
+                                <button type="button" class="btn btn-add mt-3" id="add-new-experience">Thêm kinh nghiệm</button>
                             </div>
                         </div>
 
                         <div class="text-center mt-4">
-                            <button type="submit" class="btn btn-primary">Update Candidate</button>
+                            <button type="submit" class="btn btn-primary"> <i class="fas fa-save"></i> Lưu Info</button>
                         </div>
                         <!-- Back Button -->
                         <div class="text-center mt-4 mb-4">
-                            <a th:href="@{/jobs/recommendations}" class="btn btn-secondary">Back to Dashboard</a>
+                            <a th:href="@{/jobs/recommendations}" class="btn btn-secondary">Back to</a>
                         </div>
+
                     </form>
                 </div>
             </div>

@@ -1,203 +1,134 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Recruitment and job search</title>
+    <title>Suggested Skills</title>
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/9631/9631363.png" type="image/x-icon">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
         body {
-            background-color: #f0f2f5;
+            background-color: #f0f4f8; /* Nền trang dịu nhẹ */
             font-family: 'Arial', sans-serif;
-        }
-        .header, .search-bar {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            background-color: #f0f2f5;
-            padding: 10px 0;
-        }
-
-        .card {
-            border: none;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        .job-list {
-            max-height: calc(100vh - 200px);
-            overflow-y: auto;
-            margin-top: 20px;
-            scrollbar-width: none; /* Ẩn trên Firefox */
-            -ms-overflow-style: none;
-        }
-
-        .job-details {
-            display: none;
-        }
-
-        .icon {
-            width: 25px;
-            height: 25px;
-            margin-right: 8px;
-        }
-
-        .btn-secondary {
-            background-color: #6c757d;
-            border: none;
-            font-weight: bold;
-        }
-
-        .btn-primary {
-            background-color: #0056b3;
-            border: none;
-        }
-
-        .btn-primary:hover {
-            background-color: #004494;
-        }
-
-        .pagination .page-item.active .page-link {
-            background-color: #0056b3;
-            border-color: #0056b3;
-        }
-
-        .card-title {
-            font-size: 20px;
-            font-weight: bold;
             color: #333;
         }
 
-        .card-text {
+        .container {
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 30px;
+            margin-top: 40px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #007bff; /* Màu xanh nổi bật */
+            font-weight: bold;
+        }
+
+        .list-group-item {
+            background: #e7f1ff; /* Màu nền nhạt phù hợp với màu xanh */
+            border: none;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .list-group-item h5 {
+            color: #007bff; /* Màu xanh đồng bộ */
+            margin: 0;
+            font-weight: bold;
+        }
+
+        .list-group-item p {
+            margin: 5px 0 0;
             font-size: 14px;
             color: #555;
         }
 
-        .footer {
-            background-color: #007bff;
-            color: #fff;
-            padding: 10px;
-            text-align: center;
-            border-radius: 8px;
-            margin-top: 30px;
+        .badge {
+            font-size: 13px;
+            padding: 8px 12px;
+            border-radius: 15px;
+            background-color: #007bff; /* Màu badge đồng bộ */
+            color: #ffffff; /* Chữ trên badge */
         }
 
-        .footer a {
-            color: #ffdd57;
-            font-weight: bold;
+        .no-skills {
+            text-align: center;
+            font-size: 18px;
+            color: #007bff;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff; /* Nút quay lại với màu xanh nổi bật */
+            border: none;
+            border-radius: 25px;
+            padding: 12px 25px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background-color: #0056b3; /* Tông xanh đậm hơn khi hover */
+            text-decoration: none;
+        }
+
+        .back-btn i {
+            margin-right: 10px;
+        }
+
+        .skill-icon {
+            font-size: 24px;
+            color: #007bff; /* Màu biểu tượng đồng bộ */
+            margin-right: 15px;
         }
     </style>
 </head>
 <body>
-<div class="container pt-4">
-    <!-- Header -->
-    <div class="header text-center">
-        <h1>Job Finder Platform</h1>
-        <p>Your dream job is just a click away!</p>
+<div class="container">
+    <h2>
+        <i class="fas fa-star"></i> Skills Recommended for You
+    </h2>
+
+    <!-- Kiểm tra danh sách có kỹ năng đề xuất hay không -->
+    <div class="no-skills" th:if="${#lists.isEmpty(recommendedSkills)}">
+        <i class="fas fa-exclamation-circle"></i> No skills recommended.
     </div>
 
-    <!-- Search Bar -->
-    <div class="search-bar row align-items-center mb-4">
-        <div class="col-md-8">
-            <form th:action="@{/search}" method="get">
-                <div class="input-group">
-                    <input type="text" name="search" class="form-control"
-                           placeholder="🔍 Search by job name, company, or skills"
-                           aria-label="Search" th:value="${search}">
-                    <button class="btn btn-primary" type="submit">Search</button>
-                </div>
-            </form>
-        </div>
-        <div class="col-md-4 text-end">
-            <!-- Nút Thống kê -->
-            <a th:href="@{/stats}" class="btn btn-info me-2">📊 Statistics</a>
-            <a th:href="@{/login}" class="btn btn-light me-2"><i class="fas fa-sign-in-alt"></i> Login</a>
-            <div class="btn-group">
-                <button class="btn btn-light dropdown-toggle" type="button" id="registerDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="fas fa-user-plus"></i> Register
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="registerDropdown">
-                    <li><a class="dropdown-item" th:href="@{/signup}">Candidate</a></li>
-                    <li><a class="dropdown-item" th:href="@{/companies/register}">Company</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <!-- Job List -->
-    <div class="job-list">
-        <div class="row">
-            <div th:each="job : ${jobPage.content}" class="col-md-4 mb-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title" th:text="${job.jobName}"></h5>
-                        <p class="card-text">
-                            <img src="https://cdn-icons-png.flaticon.com/512/2933/2933791.png" alt="Salary" class="icon">
-                            <span th:text="${job.jobDesc}"></span>
-                        </p>
-                        <p class="card-text">
-                            <img src="https://cdn-icons-png.flaticon.com/512/684/684908.png" alt="Address" class="icon">
-                            <span th:text="${job.company.address.getAddress()}"></span>
-                        </p>
-                        <button class="btn btn-secondary" th:onclick="|toggleDetails('job-details-' + ${job.id})|">Details</button>
-                        <div th:id="'job-details-' + ${job.id}" class="job-details mt-3">
-                            <p class="card-text"><strong>Required Skills:</strong></p>
-                            <ul>
-                                <li th:each="jobSkill : ${job.jobSkills}">
-                                    <span th:text="${jobSkill.skill.skillName}"></span> - <span th:text="${jobSkill.skillLevel}"></span>
-                                    <p th:text="${jobSkill.moreInfos}"></p>
-                                </li>
-                            </ul>
-                        </div>
+    <!-- Danh sách kỹ năng được đề xuất -->
+    <div th:if="${!#lists.isEmpty(recommendedSkills)}">
+        <ul class="list-group">
+            <li th:each="skill : ${recommendedSkills}" class="list-group-item">
+                <div>
+                    <i class="fas fa-check-circle skill-icon"></i>
+                    <div>
+                        <h5 th:text="${skill.skillName}">Skill Name</h5>
+                        <p th:text="${skill.skillDescription}">Skill Description</p>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Pagination -->
-    <nav aria-label="Page navigation" class="mt-4">
-        <ul class="pagination justify-content-center">
-            <li class="page-item" th:classappend="${jobPage.hasPrevious()} ? '' : 'disabled'">
-                <a class="page-link" th:href="@{/search(size=${jobPage.size}, page=${jobPage.number - 1}, search=${search})}" aria-label="Previous">
-                    &laquo;
-                </a>
-            </li>
-            <li th:each="pageNumber : ${pageNumbers}" class="page-item" th:classappend="${pageNumber == jobPage.number + 1} ? 'active' : ''">
-                <a class="page-link" th:href="@{/search(size=${jobPage.size}, page=${pageNumber - 1}, search=${search})}" th:text="${pageNumber}"></a>
-            </li>
-            <li class="page-item" th:classappend="${jobPage.hasNext()} ? '' : 'disabled'">
-                <a class="page-link" th:href="@{/search(size=${jobPage.size}, page=${jobPage.number + 1}, search=${search})}" aria-label="Next">
-                    &raquo;
-                </a>
+                <span class="badge" th:text="${skill.type}">Skill Type</span>
             </li>
         </ul>
-    </nav>
+    </div>
 
-    <!-- Footer -->
-    <div class="footer">
-        <p>&copy; 2024 Job Finder | Designed with ❤️ by Tran Hien Vinh</p>
+    <div class="text-center mt-4">
+        <a th:href="@{/jobs/recommendations}" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Back to Dashboard
+        </a>
     </div>
 </div>
 
-<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-<script>
-    function toggleDetails(id) {
-        var element = document.getElementById(id);
-        if (element) {
-            element.style.display = element.style.display === "block" ? "none" : "block";
-        }
-    }
-</script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
 </body>
 </html>

@@ -5,77 +5,10 @@
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/9631/9631363.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body, html {
-            height: 100%;
-            margin: 0;
-            font-family: Arial, sans-serif;
+        body {
+            background-color: #f8f9fa; /* Màu nền nhẹ nhàng */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        .navbar-custom {
-            background-color: white;
-            border-bottom: 1px solid #ddd;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        .navbar-nav .nav-link {
-            font-weight: bold;
-            color: #17a2b8;
-            transition: color 0.3s ease-in-out;
-        }
-        .nav-item:hover {
-            background-color: #17a2b8;
-        }
-        .nav-link:hover {
-            color: #FFFFFF; /* Blue hover color */
-        }
-        .navbar-brand img {
-            max-height: 40px;
-        }
-        .btn-primary {
-            background-color: #0056b3;
-            border-radius: 5px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        .btn-primary:hover {
-            background-color: #004085;
-        }
-        .btn-danger {
-            background-color: #dc3545;
-            border-radius: 5px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        .btn-danger:hover {
-            background-color: #c82333;
-        }
-        .card {
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-        }
-        .card-body {
-            padding: 20px;
-        }
-        .card-title a {
-            color: #0056b3;
-            text-decoration: none;
-        }
-        .card-title a:hover {
-            text-decoration: underline;
-            color: #003366;
-        }
-        .alert {
-            border-radius: 8px;
-        }
-        .alert-success {
-            background-color: #d4edda;
-            color: #155724;
-        }
-        .alert-danger {
-            background-color: #f8d7da;
-            color: #721c24;
-        }
-
-
-
-
 
         .container {
             max-width: 800px;
@@ -151,57 +84,6 @@
     </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light navbar-custom fixed-top"->
-    <div class="container">
-        <a class="navbar-brand" href="/">
-            <img src="https://bluec.vn/wp-content/themes/bluec2019/files/logo.png" alt="Logo">
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/">TRANG CHỦ</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">CHIA SẺ</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">SẢN PHẨM & DỊCH VỤ</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">VỀ BLUE C</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="bi bi-search"></i></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/login}">ĐĂNG NHẬP</a>
-                </li>
-                <li class="nav-item">
-                    <div class="collapse navbar-collapse justify-content-end">
-                        <div class="btn-group">
-                            <button type="button" class="nav-link" data-bs-toggle="dropdown" aria-expanded="false">
-                                <!--                               https://cdn-icons-png.flaticon.com/512/3437/3437393.png-->
-                                <img src="https://cdn-icons-png.flaticon.com/512/3437/3437393.png" style="width: 20px; height: 20px">
-                                <span th:text="${company.getCompName()}"></span>
-                                \/
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" th:href="@{/companies/edit/{id}(id=${company.id})}">Edit Company</a></li>
-                                <li><a class="dropdown-item" th:href="@{/logout}">Logout</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
-
 <div class="container">
     <h2 class="job-title">
         <i class="fas fa-briefcase"></i> Job Details
