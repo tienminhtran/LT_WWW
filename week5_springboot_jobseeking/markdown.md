@@ -16,6 +16,7 @@ Hệ thống này sẽ sử dụng các thuật toán phân tích dữ liệu v�
 
 ### CSDL: 
 Hedisql là một công cụ mạnh mẽ cho phép bạn lưu trữ dữ liệu quan hệ trong Redis và thực hiện các truy vấn SQL đơn giản, giúp bạn dễ dàng quản lý các thực thể trong hệ thống tuyển dụng.
+![markdown](https://github.com/tienminhtran/LT_WWW/blob/main/week5_springboot_jobseeking/data/sql.png)
 ### Cấu trúc các bảng và mối quan hệ:
 -	**Candidate** (Ứng viên): Lưu trữ thông tin về ứng viên.
 -	**CandidateSkill** (Kỹ năng của ứng viên): Lưu trữ thông tin về kỹ năng mà ứng viên sở hữu.
@@ -55,5 +56,22 @@ Hedisql là một công cụ mạnh mẽ cho phép bạn lưu trữ dữ liệu 
 
 ### Giao diện ứng viên:
 
-> [!IMPORTANT]
-(https://github.com/tienminhtran/LT_WWW/blob/810ea431173e02453e9be6bc52d52e56e40b33c4/week5_springboot_jobseeking/2024-12-15-23-14-23.gif)
+> ![minhchung](https://github.com/tienminhtran/LT_WWW/blob/main/week5_springboot_jobseeking/2024-12-15-23-14-23.gif)
+
+### Giao diện check mail gởi từ ứng viên:
+
+> ![minhchung](https://github.com/tienminhtran/LT_WWW/blob/main/week5_springboot_jobseeking/2024-12-15-23-19-45.gif)
+
+### Giao diện từ ứng viên , tìm kiếm , chỉnh sửa, thống kê:
+
+> ![minhchung](https://github.com/tienminhtran/LT_WWW/blob/main/week5_springboot_jobseeking/2024-12-15-23-20-32.gif)
+
+
+### Giao diện phía Nhà tuyển dụng:
+
+> ![minhchung](https://github.com/tienminhtran/LT_WWW/blob/main/week5_springboot_jobseeking/2024-12-15-23-28-36.gif)
+
+
+### Giao diện check mail gởi từ   Nhà tuyển dụng:
+
+> ![minhchung](https://github.com/tienminhtran/LT_WWW/blob/main/week5_springboot_jobseeking/2024-12-15-23-33-25.gif)
