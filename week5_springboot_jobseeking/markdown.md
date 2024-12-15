@@ -1,4 +1,6 @@
 BÁO CÁO: HỆ THỐNG GỢI Ý CÔNG VIỆC VÀ ỨNG VIÊN DỰA TRÊN KỸ NĂNG
+
+Link tài liệu: https://drive.google.com/file/d/1gRBf4KAx7zyq2Y5HCKZbeUftlQPCt8zL/view?usp=sharing
 ## 1. Đặt tả:
 Để phát triển một hệ thống giúp quản lý và hỗ trợ quá trình tuyển dụng, có thể mô tả lại các chức năng chính như sau:
 1.	Quản lý cơ sở dữ liệu các thực thể: Hệ thống sẽ lưu trữ thông tin của các thực thể như ứng viên, nhà tuyển dụng, công ty, công việc, kỹ năng, và các mối quan hệ giữa chúng (như ứng viên ứng tuyển vào công ty nào, công ty yêu cầu những kỹ năng gì, …).
