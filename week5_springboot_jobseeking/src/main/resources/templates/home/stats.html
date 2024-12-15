@@ -36,7 +36,6 @@
             margin: 20px 0;
         }
 
-        /* Nút */
         .btn-container {
             margin: 20px 0;
             text-align: center;
@@ -60,23 +59,36 @@
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
         }
 
-        /* Nút được chọn */
         .btn.active {
-            background: linear-gradient(135deg, #28a745, #218838); /* Màu xanh đậm */
+            background: linear-gradient(135deg, #28a745, #218838);
             box-shadow: 0px 4px 10px rgba(0, 128, 0, 0.3);
             color: #ffffff;
         }
 
+        /* Bố cục biểu đồ */
+        .charts-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
         .chart-container {
-            width: 90%;
-            max-width: 1100px;
-            margin: 20px auto;
+            flex: 1 1 45%;
+            max-width: 550px;
+            margin: auto;
+            background-color: #f1f1f1;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
         }
 
         canvas {
-            max-width: 100%;
+            width: 100% !important;
             height: auto;
         }
+
     </style>
 </head>
 <body>
@@ -84,15 +96,24 @@
     <h1>📊 Statistics</h1>
     <hr>
 
-    <!-- Nút chọn biểu đồ -->
     <div class="btn-container">
         <button class="btn" onclick="showJobSkillsChart()">Top kỹ năng được tuyển dụng nhiều nhất</button>
         <button class="btn" onclick="showCandidateSkillsChart()">Top kỹ năng phổ biến của ứng viên</button>
+        <button class="btn" onclick="showTopCompaniesChart()">Top công ty tuyển dụng nhiều nhất</button> <!-- Nút mới -->
+
     </div>
 
-    <!-- Biểu đồ -->
-    <div class="chart-container">
-        <canvas id="dynamicChart"></canvas>
+    <!-- Bố cục cho biểu đồ tròn và cột -->
+    <div class="charts-container">
+        <!-- Biểu đồ tròn -->
+        <div class="chart-container">
+            <canvas id="pieChart"></canvas>
+        </div>
+
+        <!-- Biểu đồ cột -->
+        <div class="chart-container">
+            <canvas id="barChart"></canvas>
+        </div>
     </div>
 </div>
 
@@ -115,9 +136,38 @@
         return colors;
     }
 
-    // Biểu đồ động
-    const ctx = document.getElementById('dynamicChart').getContext('2d');
-    let dynamicChart = new Chart(ctx, {
+    // Biểu đồ tròn (Pie Chart)
+    const ctxPie = document.getElementById('pieChart').getContext('2d');
+    const pieChart = new Chart(ctxPie, {
+        type: 'pie',
+        data: {
+            labels: jobSkillsLabels,
+            datasets: [{
+                data: jobSkillsCounts,
+                backgroundColor: generateColors(jobSkillsCounts.length),
+                borderColor: '#fff',
+                borderWidth: 2,
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    labels: {
+                        font: {
+                            size: 14,
+                            family: 'Arial',
+                            weight: 'bold'
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    // Biểu đồ cột (Bar Chart)
+    const ctxBar = document.getElementById('barChart').getContext('2d');
+    const barChart = new Chart(ctxBar, {
         type: 'bar',
         data: {
             labels: jobSkillsLabels,
@@ -170,36 +220,25 @@
         }
     });
 
-    // Lấy danh sách tất cả các nút
-    const buttons = document.querySelectorAll('.btn');
-
-    function setActiveButton(clickedButton) {
-        // Loại bỏ lớp 'active' khỏi tất cả các nút
-        buttons.forEach(button => button.classList.remove('active'));
-
-        // Thêm lớp 'active' vào nút được nhấn
-        clickedButton.classList.add('active');
-    }
-
     // Chuyển đổi biểu đồ
     function showJobSkillsChart() {
-        setActiveButton(document.querySelector('button[onclick="showJobSkillsChart()"]')); // Đặt nút này là 'active'
+        pieChart.data.labels = jobSkillsLabels;
+        pieChart.data.datasets[0].data = jobSkillsCounts;
+        pieChart.update();
 
-        dynamicChart.data.labels = jobSkillsLabels;
-        dynamicChart.data.datasets[0].data = jobSkillsCounts;
-        dynamicChart.data.datasets[0].label = 'Số lượng công việc yêu cầu';
-        dynamicChart.data.datasets[0].backgroundColor = generateColors(jobSkillsCounts.length);
-        dynamicChart.update();
+        barChart.data.labels = jobSkillsLabels;
+        barChart.data.datasets[0].data = jobSkillsCounts;
+        barChart.update();
     }
 
     function showCandidateSkillsChart() {
-        setActiveButton(document.querySelector('button[onclick="showCandidateSkillsChart()"]')); // Đặt nút này là 'active'
+        pieChart.data.labels = candidateSkillsLabels;
+        pieChart.data.datasets[0].data = candidateSkillsCounts;
+        pieChart.update();
 
-        dynamicChart.data.labels = candidateSkillsLabels;
-        dynamicChart.data.datasets[0].data = candidateSkillsCounts;
-        dynamicChart.data.datasets[0].label = 'Số lượng ứng viên có';
-        dynamicChart.data.datasets[0].backgroundColor = generateColors(candidateSkillsCounts.length);
-        dynamicChart.update();
+        barChart.data.labels = candidateSkillsLabels;
+        barChart.data.datasets[0].data = candidateSkillsCounts;
+        barChart.update();
     }
 </script>
 </body>

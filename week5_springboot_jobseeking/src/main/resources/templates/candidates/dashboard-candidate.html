@@ -330,6 +330,7 @@
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" th:href="@{/edit/{id}(id=${candidate.id})}">Edit Company</a></li>
                                 <li><a class="dropdown-item" th:href="@{/skills/recommend/{candidateId}(candidateId=${candidate.id})}">Của bạn</a></li>
+                                <a th:href="@{/stats}" class="btn btn-info me-2">Thống kê</a>
                                 <li><a class="dropdown-item" th:href="@{/logout}">Logout</a></li>
                             </ul>
                         </div>
