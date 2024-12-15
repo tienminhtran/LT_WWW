@@ -23,9 +23,9 @@ Hedisql là một công cụ mạnh mẽ cho phép bạn lưu trữ dữ liệu 
 -	**Company** (Công ty): Lưu trữ thông tin về công ty.
 -	**Experience** (Kinh nghiệm): Lưu trữ thông tin về kinh nghiệm làm việc của ứng viên.
 -	**Job** (Công việc): Lưu trữ thông tin về công việc cần tuyển dụng.
--	**JobSkill ** (Kỹ năng công việc): Lưu trữ các kỹ năng cần có cho công việc.
+-	**JobSkill** (Kỹ năng công việc): Lưu trữ các kỹ năng cần có cho công việc.
 -	**JobSkillID** (ID kỹ năng công việc): Mối quan hệ giữa công việc và kỹ năng cần có.
--	**Skill ** (Kỹ năng): Lưu trữ thông tin về các kỹ năng mà ứng viên và công ty có thể yêu cầu.
+-	**Skill** (Kỹ năng): Lưu trữ thông tin về các kỹ năng mà ứng viên và công ty có thể yêu cầu.
  
 
 ## 3. Thực hiện
@@ -41,7 +41,7 @@ Hedisql là một công cụ mạnh mẽ cho phép bạn lưu trữ dữ liệu 
 -	**JobSkillRepository** cung cấp các phương thức hữu ích để truy vấn các kỹ năng yêu cầu cho từng công việc và phân tích các kỹ năng phổ biến nhất trong thị trường việc làm.
 -	**SkillRepository** cung cấp các phương thức quan trọng để tìm kiếm các kỹ năng mà ứng viên chưa có, giúp đưa ra các gợi ý kỹ năng cần học thêm. Phương thức findBySkillName hỗ trợ tìm kiếm kỹ năng cụ thể, đáp ứng nhu cầu truy vấn theo tên kỹ năng. Những phương thức này rất hữu ích trong việc hỗ trợ các ứng viên phát triển kỹ năng của mình hoặc giúp các nhà tuyển dụng tìm kiếm các kỹ năng phù hợp.
 
-###Lớp Services
+### Lớp Services
 
 -	**CandidateServicecung** cấp chức năng toàn diện để quản lý ứng viên, bao gồm tạo, cập nhật và truy xuất ứng viên dựa trên nhiều tiêu chí khác nhau. Trong khi nó xử lý các mối quan hệ phức tạp giữa ứng viên, kỹ năng và kinh nghiệm, vẫn có chỗ để tối ưu hóa về hiệu suất, xử lý lỗi và ghi nhật ký.
 -	**CompanyService** cung cấp các chức năng cơ bản để quản lý thông tin công ty trong ứng dụng Spring Boot. Các phương thức chính của lớp này bao gồm tìm công ty theo ID hoặc email, kiểm tra sự tồn tại của công ty dựa trên email hoặc số điện thoại, và lưu thông tin công ty và địa chỉ của công ty
