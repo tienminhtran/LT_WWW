@@ -353,9 +353,9 @@ public class JobController {
             // Gửi hồ sơ kèm thông tin ứng viên chi tiết
             jobApplicationService.sendApplication(jobId, applicantName, email, message, job, candidate);
 
-            redirectAttributes.addFlashAttribute("successMessage", "Your application has been sent successfully!");
+            redirectAttributes.addFlashAttribute("successMessage", "Đơn đăng ký của bạn đã được gửi thành công!");
         } catch (MessagingException e) {
-            redirectAttributes.addFlashAttribute("errorMessage", "There was an error sending your application.");
+            redirectAttributes.addFlashAttribute("errorMessage", "Đã xảy ra lỗi khi gửi đơn đăng ký của bạn.");
         }
         return "redirect:/jobs/apply/" + jobId;
     }
