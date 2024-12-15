@@ -52,3 +52,8 @@ Hedisql là một công cụ mạnh mẽ cho phép bạn lưu trữ dữ liệu 
 -	**StatsService** cung cấp các chức năng thống kê về kỹ năng, sử dụng các câu truy vấn và xử lý kết quả rất hợp lý.
 
 ## 4. Giao diện
+
+### Giao diện ứng viên:
+
+> [!IMPORTANT]
+> ![minhchung] (https://github.com/tienminhtran/LT_WWW/blob/810ea431173e02453e9be6bc52d52e56e40b33c4/week5_springboot_jobseeking/2024-12-15-23-14-23.gif)
