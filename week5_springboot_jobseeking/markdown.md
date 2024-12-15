@@ -56,4 +56,4 @@ Hedisql là một công cụ mạnh mẽ cho phép bạn lưu trữ dữ liệu 
 ### Giao diện ứng viên:
 
 > [!IMPORTANT]
-> ![minhchung] (https://github.com/tienminhtran/LT_WWW/blob/810ea431173e02453e9be6bc52d52e56e40b33c4/week5_springboot_jobseeking/2024-12-15-23-14-23.gif)
+(https://github.com/tienminhtran/LT_WWW/blob/810ea431173e02453e9be6bc52d52e56e40b33c4/week5_springboot_jobseeking/2024-12-15-23-14-23.gif)
