@@ -1,10 +1,81 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Stats</title>
-    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/9631/9631363.png" type="image/x-icon">
+    <title> Thống kê </title>
+    <link rel="icon" href="https://bluec.vn/wp-content/uploads/2022/08/logo-Blue-C-tron-150x150.png" sizes="32x32">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .navbar-custom {
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .navbar-nav .nav-link {
+            font-weight: bold;
+            color: #17a2b8;
+            transition: color 0.3s ease-in-out;
+        }
+        .nav-item:hover {
+            background-color: #17a2b8;
+            /*    */
+        }
+        .nav-link:hover {
+            color: #FFFFFF; /* Blue hover color */
+        }
+        .navbar-brand img {
+            max-height: 40px;
+        }
+        .btn-primary {
+            background-color: #0056b3;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .btn-primary:hover {
+            background-color: #004085;
+        }
+        .btn-danger {
+            background-color: #dc3545;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .card-body {
+            padding: 20px;
+        }
+        .card-title a {
+            color: #0056b3;
+            text-decoration: none;
+        }
+        .card-title a:hover {
+            text-decoration: underline;
+            color: #003366;
+        }
+        .alert {
+            border-radius: 8px;
+        }
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
         body {
             font-family: 'Arial', sans-serif;
             background: linear-gradient(to bottom right, #f8f9fa, #e9ecef);
@@ -13,14 +84,14 @@
             padding: 0;
         }
 
-        .container {
-            padding: 20px;
-            max-width: 1200px;
-            margin: auto;
-            background: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-        }
+        /*.container {*/
+        /*    padding: 20px;*/
+        /*    max-width: 1200px;*/
+        /*    margin: auto;*/
+        /*    background: #ffffff;*/
+        /*    border-radius: 8px;*/
+        /*    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);*/
+        /*}*/
 
         h1 {
             font-size: 2.5rem;
@@ -92,15 +163,47 @@
     </style>
 </head>
 <body>
-<div class="container">
-    <h1>📊 Statistics</h1>
+
+<nav class="navbar navbar-expand-lg navbar-light navbar-custom fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="/">
+            <img src="https://bluec.vn/wp-content/themes/bluec2019/files/logo.png" alt="Logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="/">TRANG CHỦ</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">CHIA SẺ</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">SẢN PHẨM & DỊCH VỤ</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">VỀ BLUE C</a></li>
+                <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-search"></i></a></li>
+                <li class="nav-item"><a class="nav-link" href="/login">ĐĂNG NHẬP</a></li>
+                <li class="nav-item">
+                    <div class="btn-group">
+                        <button type="button" class="nav-link" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="https://cdn-icons-png.flaticon.com/512/3437/3437393.png" style="width: 20px; height: 20px">
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<br>
+<div class="container mt-5">
+    <h1> Thống kê </h1>
     <hr>
 
     <div class="btn-container">
         <button class="btn" onclick="showJobSkillsChart()">Top kỹ năng được tuyển dụng nhiều nhất</button>
         <button class="btn" onclick="showCandidateSkillsChart()">Top kỹ năng phổ biến của ứng viên</button>
         <button class="btn" onclick="showTopCompaniesChart()">Top công ty tuyển dụng nhiều nhất</button> <!-- Nút mới -->
-
     </div>
 
     <!-- Bố cục cho biểu đồ tròn và cột -->
@@ -114,6 +217,11 @@
         <div class="chart-container">
             <canvas id="barChart"></canvas>
         </div>
+
+        <!-- Biểu đồ đường -->
+        <div class="chart-container" id="lineChartContainer" style="display:none;">
+            <canvas id="lineChart"></canvas>
+        </div>
     </div>
 </div>
 
@@ -125,6 +233,19 @@
     // Dữ liệu kỹ năng ứng viên
     const candidateSkillsLabels = /*[[${topSkillsInCandidates.keySet()}]]*/;
     const candidateSkillsCounts = /*[[${topSkillsInCandidates.values()}]]*/;
+
+    // Dữ liệu công ty tuyển dụng
+    // Tạo 20 tên công ty ngẫu nhiên
+    const companyLabels = [];
+    for (let i = 1; i <= 20; i++) {
+        companyLabels.push('Company ' + String.fromCharCode(65 + i)); // Dùng mã ASCII để tạo tên công ty từ 'Company A' đến 'Company T'
+    }
+
+    // Tạo 20 số liệu tuyển dụng ngẫu nhiên
+    const companyRecruitments = [];
+    for (let i = 0; i < 20; i++) {
+        companyRecruitments.push(Math.floor(Math.random() * 200) + 50); // Tạo số ngẫu nhiên từ 50 đến 250
+    }
 
     function generateColors(length) {
         const colors = [];
@@ -220,24 +341,96 @@
         }
     });
 
+    // Biểu đồ đường (Line Chart)
+    const ctxLine = document.getElementById('lineChart').getContext('2d');
+    const lineChart = new Chart(ctxLine, {
+        type: 'line',
+        data: {
+            labels: companyLabels,
+            datasets: [{
+                label: 'Công ty tuyển dụng',
+                data: companyRecruitments,
+                borderColor: '#28a745',
+                backgroundColor: 'rgba(40, 167, 69, 0.2)',
+                fill: true,
+                borderWidth: 2,
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    labels: {
+                        font: {
+                            size: 16,
+                            family: 'Arial',
+                            weight: 'bold'
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        font: {
+                            size: 14,
+                            family: 'Arial',
+                        },
+                        color: '#333'
+                    }
+                },
+                x: {
+                    ticks: {
+                        font: {
+                            size: 14,
+                            family: 'Arial',
+                        },
+                        color: '#333'
+                    }
+                }
+            },
+            interaction: {
+                mode: 'nearest',
+                intersect: false
+            }
+        }
+    });
+
     // Chuyển đổi biểu đồ
     function showJobSkillsChart() {
+        document.getElementById('pieChart').style.display = 'block';
+        document.getElementById('barChart').style.display = 'block';
         pieChart.data.labels = jobSkillsLabels;
         pieChart.data.datasets[0].data = jobSkillsCounts;
         pieChart.update();
-
         barChart.data.labels = jobSkillsLabels;
         barChart.data.datasets[0].data = jobSkillsCounts;
         barChart.update();
+        document.getElementById('lineChartContainer').style.display = 'none';
     }
 
     function showCandidateSkillsChart() {
+        document.getElementById('pieChart').style.display = 'block';
+        document.getElementById('barChart').style.display = 'block';
         pieChart.data.labels = candidateSkillsLabels;
         pieChart.data.datasets[0].data = candidateSkillsCounts;
         pieChart.update();
-
         barChart.data.labels = candidateSkillsLabels;
         barChart.data.datasets[0].data = candidateSkillsCounts;
+        barChart.update();
+        document.getElementById('lineChartContainer').style.display = 'none';
+    }
+
+    function showTopCompaniesChart() {
+        document.getElementById('pieChart').style.display = 'none';
+        document.getElementById('barChart').style.display = 'none';
+        document.getElementById('lineChartContainer').style.display = 'block';  // Hiển thị biểu đồ đường
+        pieChart.data.labels = [];
+        pieChart.data.datasets[0].data = [];
+        pieChart.update();
+        barChart.data.labels = [];
+        barChart.data.datasets[0].data = [];
         barChart.update();
     }
 </script>
