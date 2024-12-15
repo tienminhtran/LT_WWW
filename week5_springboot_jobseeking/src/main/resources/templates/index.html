@@ -74,6 +74,9 @@
             object-fit: cover;
         }
 
+        .posi{
+            width:254px; height: 184px
+        }
         .card-title {
             font-weight: bold;
             font-size: 1.2rem;
@@ -254,8 +257,8 @@
     <div class="row g-4">
         <!-- Card 1 -->
         <div th:each="job : ${jobPage.content}" class="col-md-3">
-            <div class="card">
-                <img src="https://viettel-hanoi.vn/wp-content/uploads/2021/07/cropped-logored.png.webp" class="card-img-top" alt="Event 1">
+            <div class="card1">
+                <img src="https://viettel-hanoi.vn/wp-content/uploads/2021/07/cropped-logored.png.webp" class="posi" alt="Event 1">
                 <div class="card-body">
 
                     <h6 class="card-title" th:text="${job.jobName}"></h6>
