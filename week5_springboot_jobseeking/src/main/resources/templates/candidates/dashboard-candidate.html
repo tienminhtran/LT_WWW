@@ -5,6 +5,78 @@
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/9631/9631363.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
+
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .navbar-custom {
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .navbar-nav .nav-link {
+            font-weight: bold;
+            color: #17a2b8;
+            transition: color 0.3s ease-in-out;
+        }
+        .nav-item:hover {
+            background-color: #17a2b8;
+        /*    */
+        }
+        .nav-link:hover {
+            color: #FFFFFF; /* Blue hover color */
+        }
+        .navbar-brand img {
+            max-height: 40px;
+        }
+        .btn-primary {
+            background-color: #0056b3;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .btn-primary:hover {
+            background-color: #004085;
+        }
+        .btn-danger {
+            background-color: #dc3545;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .card-body {
+            padding: 20px;
+        }
+        .card-title a {
+            color: #0056b3;
+            text-decoration: none;
+        }
+        .card-title a:hover {
+            text-decoration: underline;
+            color: #003366;
+        }
+        .alert {
+            border-radius: 8px;
+        }
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+
+
         .card {
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -14,9 +86,9 @@
         .card:hover {
             transform: translateY(-5px);
         }
-        .navbar-custom {
-            background-color: #007bff;
-        }
+        /*.navbar-custom {*/
+        /*    background-color: #007bff;*/
+        /*}*/
         .navbar-custom .nav-link,
         .navbar-custom .dropdown-item {
             color: #000 !important;
@@ -82,34 +154,185 @@
         }
         .job-card .card-body {
             color: #495057;
+            height: 190px;
         }
         .job-card .card-title a {
             font-weight: bold;
             color: #007bff;
         }
+
+
+        /* Container and Card Styles */
+        .job-card {
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: #ffffff;
+            transition: box-shadow 0.3s ease-in-out;
+        }
+
+        .job-card:hover {
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Avatar Styles */
+        .avatar-container {
+            flex-shrink: 0;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid #ddd;
+        }
+
+        .avatar {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Job Information Styles */
+        .job-info h5 {
+            font-size: 1.2rem;
+            color: #007bff;
+            margin-bottom: 8px;
+        }
+
+        .job-info p {
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .job-info p.text-muted {
+            margin-bottom: 10px;
+            color: #6c757d;
+        }
+
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
+        /* Container and Card Styles */
+        .job-card {
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: #ffffff;
+            transition: box-shadow 0.3s ease-in-out;
+        }
+
+        .job-card {
+            background-color: #ffffff; /* Default background color */
+            transition: background-color 0.5s ease, box-shadow 0.3s ease; /* Transition for color and box-shadow */
+        }
+
+        .job-card:hover {
+            background: linear-gradient(to right, #b2f4ff, #66b3cc); /* Lighter sea blue gradient */
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); /* Box shadow effect */
+        }
+
+
+        /* Avatar Styles */
+        .avatar-container {
+            flex-shrink: 0;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid #ddd;
+        }
+
+        .avatar {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Job Information Styles */
+        .job-info h5 {
+            font-size: 1.2rem;
+            color: #007bff;
+            margin-bottom: 8px;
+        }
+
+        .job-info p {
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .job-info p.text-muted {
+            margin-bottom: 10px;
+            color: #6c757d;
+        }
+
+
+
     </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-custom mb-4">
-    <div class="container-fluid">
-        <a class="navbar-brand text-white" href="#">Job Portal</a>
-        <div class="collapse navbar-collapse justify-content-end">
-            <a class="btn btn-primary"
-               th:href="@{/skills/recommend/{candidateId}(candidateId=${candidate.id})}">
-                Skill Recommendations
-            </a>
-            <div class="btn-group">
-                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                    Welcome, <span th:text="${candidate.fullName}">Candidate</span>
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" th:href="@{/edit/{id}(id=${candidate.id})}">Edit Profile</a></li>
-                    <li><a class="dropdown-item" th:href="@{/logout}">Logout</a></li>
-                </ul>
-            </div>
+<nav class="navbar navbar-expand-lg navbar-light navbar-custom fixed-top"->
+    <div class="container">
+        <a class="navbar-brand" href="/">
+            <img src="https://bluec.vn/wp-content/themes/bluec2019/files/logo.png" alt="Logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">TRANG CHỦ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">CHIA SẺ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">SẢN PHẨM & DỊCH VỤ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">VỀ BLUE C</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="bi bi-search"></i></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/login}">ĐĂNG NHẬP</a>
+                </li>
+                <li class="nav-item">
+                    <div class="collapse navbar-collapse justify-content-end">
+                        <div class="btn-group">
+                            <button type="button" class="nav-link" data-bs-toggle="dropdown" aria-expanded="false">
+                                <!--                               https://cdn-icons-png.flaticon.com/512/3437/3437393.png-->
+                                <img src="https://cdn-icons-png.flaticon.com/512/3437/3437393.png" style="width: 20px; height: 20px">
+                                <span th:text="${candidate.fullName}"></span>
+                                \/
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" th:href="@{/edit/{id}(id=${candidate.id})}">Edit Company</a></li>
+                                <li><a class="dropdown-item" th:href="@{/logout}">Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            </ul>
         </div>
     </div>
 </nav>
+
+<br>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-12">
+            <form th:action="@{/jobs/search}" method="get">
+                <div class="input-group mb-3">
+                    <div class="container my-4">
+                        <input id="searchBar" type="text" class="form-control" placeholder="Tìm kiếm..." oninput="searchItems()">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 <div class="container mt-5">
     <!-- Success message -->
@@ -122,26 +345,49 @@
         <img src="https://cdn-icons-png.flaticon.com/512/1828/1828843.png" alt="Error" class="icon">
         <span th:text="${errorMessage}"></span>
     </div>
-    <h3 class="text-center mb-4">Job Recommendations</h3>
+    <h3 class="text-center mb-4"> Vị trí công việc </h3>
     <div th:if="${#lists.isEmpty(jobs)}" class="alert alert-warning text-center mt-4">
         No job recommendations found.
     </div>
 
     <div th:if="${!#lists.isEmpty(jobs)}" class="row mt-4">
-        <div th:each="job : ${jobs}" class="col-md-6 mb-3">
-            <div class="card job-card">
-                <div class="card-body">
-                    <h5 class="card-title">
-                        <a th:href="@{/jobs/details/{id}(id=${job.getId()})}" th:text="${job.getJobName()}">Job Name</a>
-                    </h5>
-                    <p class="card-text" th:text="${job.getJobDesc()}">Job Description</p>
-                    <p><strong>Company:</strong> <span th:text="${job.getCompany().getCompName()}">Company Name</span></p>
+        <div th:each="job : ${jobs}" class="col-md-4">
+            <div class="card job-card shadow-sm">
+                <div class="card-body d-flex align-items-center">
+                    <!-- Avatar Section -->
+                    <div class="avatar-container">
+                        <img src="https://img.freepik.com/premium-vector/company-logo-with-avatar-design_1465-2.jpg?w=740" alt="Avatar" class="avatar">
+                    </div>
+                    <!-- Job Information Section -->
+                    <div class="job-info ms-3">
+                        <h5 class="card-title">
+                            <a th:href="@{/jobs/details/{id}(id=${job.getId()})}" th:text="${job.getJobName()}">Job Name</a>
+                        </h5>
+                        <p class="card-text text-muted" th:text="${job.getJobDesc()}">Job Description</p>
+                        <p><strong>Công ty:</strong> <span th:text="${job.getCompany().getCompName()}">Company Name</span></p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
+</div>
+<script>
+    function searchItems() {
+        const searchInput = document.getElementById('searchBar').value.toLowerCase();
+        const items = document.querySelectorAll('.job-card .job-info h5'); // Các tiêu đề cần tìm
+
+        items.forEach(item => {
+            const text = item.textContent.toLowerCase();
+            if (text.includes(searchInput)) {
+                item.closest('.job-card').style.display = 'block';
+            } else {
+                item.closest('.job-card').style.display = 'none';
+            }
+        });
+    }
+
+</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
