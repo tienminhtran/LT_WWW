@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+ <h1> danh sach khach hang</h1>
+ <div th:if="${message}" th:text="${message}" style="color: green; font-weight: bold;"></div>
+
+<table>
+    <thead>
+        <tr>
+            <td>id</td>
+            <td>name</td>
+            <td>dob</td>
+            <td>email</td>
+            <td>Thao tac</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="c : ${listCustomer}">
+            <td th:text="${c.id}"></td>
+            <td th:text="${c.name}"></td>
+            <td th:text="${c.dob}"></td>
+            <td th:text="${c.email}"></td>
+            <td>
+                <a th:href="@{/customers/chitiet/{id} (id=${c.id})}">Xem chi tiet</a>
+            </td>
+            <td>
+                <a th:href="@{/customers/sua/{id} (id=${c.id})}">Chinh sua</a>
+            </td>
+            <td>
+                <a th:href="@{/customers/xoa/{id} (id=${c.id})}"
+                Xoa</a>
+            </td>
+        </tr>
+    </tbody>
+<!--    thong bao-->
+<!-- khi nhan xoa hien thi alert-->
+
+</table>
+</body>
+</html>
