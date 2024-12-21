@@ -1,11 +1,31 @@
-    C:\www\payara6\bin>asadmin 
+application.properties
 
-Use "exit" to exit and "help" for online help. Remote commands not fetched
+spring.application.name=ck
 
-    asadmin> start-domain 
+spring.datasource.driver-class-name=org.mariadb.jdbc.Driver
+spring.datasource.url=jdbc:mariadb://localhost:3306/cuoiky
+spring.datasource.username=root
+spring.datasource.password=root
+spring.jpa.database-platform=org.hibernate.dialect.MariaDBDialect
 
-Waiting for domain1 to start .................. Successfully started the domain : 
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
 
-  domain1 domain Location: C:\www\payara6\glassfish\domains\domain1 Log File: C:\www\payara6\glassfish\domains\domain1\logs\server.log Admin Port: 4848 Command start-domain executed successfully.
+#logging.level.org.springframework.security=DEBUG
 
-asadmin> add-library "C:\www\payara6\bin\mariadb-java-client-3.4.1.jar" Command add-library executed successfully. asadmin>
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    compileOnly 'org.projectlombok:lombok'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    implementation 'net.datafaker:datafaker:2.4.2'
+
+}
