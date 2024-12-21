@@ -15,17 +15,28 @@ spring.jpa.show-sql=true
 
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    compileOnly 'org.projectlombok:lombok'
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
-    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
-    annotationProcessor 'org.projectlombok:lombok'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'org.springframework.security:spring-security-test'
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
-    implementation 'net.datafaker:datafaker:2.4.2'
+  implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+ implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
+ implementation 'org.springframework.boot:spring-boot-starter-web'
+
+ compileOnly 'org.projectlombok:lombok'
+   
+developmentOnly 'org.springframework.boot:spring-boot-devtools'
+ 
+ runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+
+ annotationProcessor 'org.projectlombok:lombok'
+
+testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    
+ testImplementation 'org.springframework.security:spring-security-test'
+    
+ testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+ implementation 'net.datafaker:datafaker:2.4.2'
 
 }
+
