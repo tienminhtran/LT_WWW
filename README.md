@@ -36,7 +36,32 @@ testImplementation 'org.springframework.boot:spring-boot-starter-test'
     
  testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
+
+
+
  implementation 'net.datafaker:datafaker:2.4.2'
 
 }
 
+
+
+## GIỮA KỲ TOMCAT
+Bước 1: Add Dependencies
+
+    jakarta.servlet
+    
+    jakarta.servlet.jsp
+    
+    jakarta.servlet.jsp.jstl
+    
+    com.fasterxml.jackson.core
+    
+    org.glassfish.web
+    
+    com.microsoft.sqlserver
+    
+    org.mariadb.jdbc
+    
+    org.projectlombok
+    
+    jakarta.annotation
