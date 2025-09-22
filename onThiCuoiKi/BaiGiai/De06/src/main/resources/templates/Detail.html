@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>DETAIL</title>
+    <style>
+        table{
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th,td{
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th{
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <a href="/order/home">HOME</a>
+    <a href="/order/formAdd">ADD</a>
+</div>
+<div>
+    <form th:action="@{/order/search}" method="get">
+        <input type="text" id="keyword" name="keyword" placeholder="Vui lòng nhập ID cần tìm">
+        <input type="submit" value="Search">
+    </form>
+</div>
+<div>
+    <table>
+        <thead>
+        <th>ID</th>
+        <th>PRODUCT ID</th>
+        <th>PRODUCT NAME</th>
+        <th>QUANTITY</th>
+        <th>PRICE</th>
+        <th>TOTAL</th>
+        </thead>
+
+        <tbody>
+        <tr>
+            <td th:text="${o.ID}"></td>
+            <td th:text="${o.proID}"></td>
+            <td th:text="${o.proName}"></td>
+            <td th:text="${o.quantity}"></td>
+            <td th:text="${o.price}"></td>
+            <td th:text="${o.totalPrice}"></td>
+        </tr>
+        </tbody>
+
+    </table>
+
+
+
+</div>
+
+</body>
+</html>

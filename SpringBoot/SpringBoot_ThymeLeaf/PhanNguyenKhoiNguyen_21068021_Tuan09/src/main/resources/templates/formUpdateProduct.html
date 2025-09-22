@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>UPDATE PRODUCT</title>
+   <style>
+       .error{
+           color: red;
+       }
+    </style>
+</head>
+<body>
+  <th:block th:include="/menu"></th:block>
+  <h1>UPDATE PRODUCT</h1>
+    <form th:action="@{/product/updateProduct}"  th:object="${product}"  method="post">
+        <table>
+            <tr>
+                <input type="hidden" th:field="*{id}"/>
+            </tr>
+            <tr>
+                <input type="hidden" th:field="*{registedDate}"/>
+            </tr>
+
+            <tr>
+            <td>CODE</td>
+            <td>
+                <input type="text" th:field="*{code}"/>
+                <div th:if="${#fields.hasErrors('code')}" th:errors="*{code}" class="error"></div>
+            </td>
+        </tr>
+        <tr>
+            <td>NAME</td>
+            <td>
+                <input type="text" th:field="*{name}"/>
+                <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error"></div>
+            </td>
+        </tr>
+        <tr>
+            <td>DESCRIPTION</td>
+            <td>
+                <input type="text" th:field="*{description}"/>
+                <div th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="error"></div>
+            </td>
+        </tr>
+        <tr>
+            <td>PRICE</td>
+            <td>
+                <input type="number" th:field="*{price}" step="0.01" min="0"/>
+                <div th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="error"></div>
+            </td>
+        </tr>
+        <tr>
+            <td>CATEGORY</td>
+            <td>
+               <select th:field="*{category}">
+                   <option value="" disabled selected>-- Select Category --</option>
+                   <option th:each="category : ${dsCategory}"
+                           th:value="${category.id}"
+                           th:text="${category.name}"
+                           th:selected="${category.id == product.category.id}"
+                   >
+                   </option>
+               </select>
+            </td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="UPDATE PRODCUCT"></td>
+        </tr>
+        </table>
+    </form>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>UPDATE</title>
+    <style>
+        .error{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <form th:action="@{/order/update}" method="post" th:object="${order}">
+        <table>
+            <input type="hidden" th:field="*{ID}"/>
+            <tr>
+                <td>Product ID</td>
+                <td>
+                    <input type="number" th:field="*{ProID}"/>
+                    <div th:if="${#fields.hasErrors('ProID')}" th:errors="*{ProID}" class="error"></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Product Name</td>
+                <td>
+                    <input type="text" th:field="*{ProName}"/>
+                    <div th:if="${#fields.hasErrors('ProName')}" th:errors="*{ProName}" class="error"></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Quantity</td>
+                <td>
+                    <input type="number" th:field="*{Quantity}"/>
+                    <div th:if="${#fields.hasErrors('Quantity')}" th:errors="*{Quantity}" class="error"></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>Price</td>
+                <td>
+                    <input type="number" th:field="*{Price}" step="0.01" min="0"/>
+                    <div th:if="${#fields.hasErrors('Price')}" th:errors="*{Price}" class="error"></div>
+                </td>
+            </tr>
+            <tr>
+                <td COLSPAN="2"><input type="submit" value="UPDATE"></td>
+            </tr>
+        </table>
+
+
+
+
+    </form>
+
+
+
+
+
+</div>
+
+</body>
+</html>

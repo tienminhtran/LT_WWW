@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>TRANG CHỦ</title>
+    <style>
+        table {
+            border-collapse: collapse; /* Hợp nhất các viền của bảng */
+            width: 100%; /* Tuỳ chọn, có thể thêm để bảng rộng hết màn hình */
+        }
+
+        th, td {
+            border: 1px solid black; /* Định nghĩa viền cho các ô */
+            padding: 8px; /* Tuỳ chọn, để các ô có khoảng cách bên trong */
+            text-align: left; /* Căn chỉnh văn bản, có thể thay đổi */
+        }
+
+        th {
+            background-color: #f2f2f2; /* Màu nền cho tiêu đề, tuỳ chọn */
+        }
+    </style>
+
+</head>
+<body>
+
+<th:block th:include="/Menu"></th:block>
+
+<div>
+    <h3>CHI TIẾT SÁCH</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Tên sách</th>
+            <th>Tác giả</th>
+            <th>Mô tả</th>
+            <th>Ngày sản xuất</th>
+            <th>Giá</th>
+            <th>Danh mục</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td th:text="${book.id}"></td>
+            <td th:text="${book.title}"></td>
+            <td th:text="${book.author}"></td>
+            <td th:text="${book.description}"></td>
+            <td th:text="${book.publishDate}"></td>
+            <td th:text="${book.price}"></td>
+            <td th:text="${book.category.name}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,6 @@
+<!-- _menu.html -->
+<a th:href="@{/}">Home</a>
+<a th:href="@{/userInfo}">User Info</a>
+<a th:href="@{/admin}">Admin</a>
+<a th:if="${isAuthenticated}" th:href="@{/logout}">Logout</a>
+

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ADD PRODUCT</title>
+   <style>
+       .error{
+           color: red;
+       }
+    </style>
+</head>
+<body>
+  <th:block th:include="/menu"></th:block>
+  <h1>ADD PRODUCT</h1>
+    <form th:action="@{/product/addCategory}"  th:object="${category}"  method="post">
+        <table>
+        <tr>
+            <td>Name</td>
+            <td>
+                <input type="text" th:field="*{name}"/>
+                <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error"></div>
+            </td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="ADD CATEGORY"></td>
+        </tr>
+        </table>
+    </form>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>HOME</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+   <th:block th:include="/menu"></th:block>
+
+   <h1>LIST PRODUCT BY CATEGORY</h1>
+
+
+   <table>
+       <tr>
+           <th>ID</th>
+           <th>CODE</th>
+           <th>NAME</th>
+           <th>DESCRIPTION</th>
+           <th>REGISTED_DATE</th>
+           <th>PRICE</th>
+           <th>CATEGORY ID</th>
+       </tr>
+       <tr th:each="product : ${dsProduct}">
+           <td th:text="${product.id}"></td>
+           <td th:text="${product.code}"></td>
+           <td th:text="${product.name}"></td>
+           <td th:text="${product.description}"></td>
+           <td th:text="${product.registedDate}"></td>
+           <td th:text="${product.price}"></td>
+           <td th:text="${product.category.id}"></td>
+       </tr>
+    </table>
+</body>
+</html>

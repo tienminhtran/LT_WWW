@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>403 Page</title>
+</head>
+<body>
+
+    <th:block th:include="/_menu"></th:block>
+
+    <h1>Access Denied</h1>
+
+    <h3 th:if="${message != null}" th:utext="${message}" style="color: red;"></h3>
+
+    <div th:if="${userInfo != null}" th:utext="${userInfo}"></div>
+
+</body>
+</html>

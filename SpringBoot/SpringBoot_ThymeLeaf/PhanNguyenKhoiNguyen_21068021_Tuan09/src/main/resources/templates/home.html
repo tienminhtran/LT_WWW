@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>HOME</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+   <th:block th:include="/menu"></th:block>
+   <h1>HOME</h1>
+
+   <form th:action="@{/product/search}" method="post">
+       <input type="text" id="keyword" name="keyword" placeholder="Enter ID, Name, Code, REGISTER_DATE, PRICE" />
+       <input type="submit" value="Search" />
+   </form>
+
+   <table>
+       <tr>
+           <th>ID</th>
+           <th>CODE</th>
+           <th>NAME</th>
+           <th>CATEGORY ID</th>
+           <th>ACTION</th>
+       </tr>
+       <tr th:each="product : ${dsProduct}">
+           <td th:text="${product.id}"></td>
+           <td th:text="${product.code}"></td>
+           <td th:text="${product.name}"></td>
+           <td th:text="${product.category.id}"></td>
+           <td>
+               <a th:href="@{/product/showFormEditProduct(id=${product.id})}">EDIT</a>
+               <br>
+               <a th:href="@{/product/delete(id=${product.id})}"
+                  onclick="if (!confirm('Are you sure you want to delete this product?')) return false"
+               >DELETE</a>
+               <br>
+               <a th:href="@{/product/showDetail(id=${product.id})}">VIEW DETAIL</a>
+           </td>
+       </tr>
+    </table>
+
+   <!-- Pagination controls -->
+   <div>
+       <a th:if="${currentPage > 1}" th:href="@{/product/home(pageNo=${currentPage - 1}, pageSize=${10}, sortField=${sortField}, sortDirection=${sortDirection})}">Previous</a>
+       <span>Page <span th:text="${currentPage}"></span> of <span th:text="${totalPages}"></span></span>
+       <a th:if="${currentPage < totalPages}" th:href="@{/product/home(pageNo=${currentPage + 1}, pageSize=${10}, sortField=${sortField}, sortDirection=${sortDirection})}">Next</a>
+   </div>
+
+
+</body>
+</html>

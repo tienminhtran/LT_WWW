@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>THÊM</title>
+    <style>
+           .error {
+            color: red;
+           }
+    </style>
+
+</head>
+<body>
+<th:block th:include="/Menu"></th:block>
+<h1>THÊM</h1>
+<div>
+    <form th:action="@{/book/addBook}" method="post" th:object="${book}">
+        <table>
+            <tr>
+                <td>Tên sách</td>
+                <td>
+                    <input type="text" th:field="*{title}"/>
+                    <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="error"></div>
+                </td>
+
+            </tr>
+
+
+            <tr>
+                <td>Tên tác giả</td>
+                <td>
+                    <input type="text" th:field="*{author}"/>
+                    <div th:if="${#fields.hasErrors('author')}" th:errors="*{author}" class="error"></div>
+                </td>
+
+            </tr>
+
+
+            <tr>
+                <td>Mô tả</td>
+                <td>
+                    <input type="text" th:field="*{description}"/>
+                    <div th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="error"></div>
+                </td>
+
+            </tr>
+
+            <tr>
+                <td>Ngày sản xuất</td>
+                <td>
+                    <input type="date" th:field="*{publishDate}"/>
+                    <div th:if="${#fields.hasErrors('publishDate')}" th:errors="*{publishDate}" class="error"></div>
+                </td>
+
+            </tr>
+
+            <tr>
+                <td>Giá</td>
+                <td>
+                    <input type="number" th:field="*{price}" step="0.01" min="0"/>
+                    <div th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="error"></div>
+                </td>
+
+            </tr>
+
+
+            <tr>
+                <td>Danh mục</td>
+                <td>
+                    <select th:field="*{category}" class="dropdown">
+                        <option value="" disabled selected>-- Chọn danh mục --</option>
+                        <option th:each="cate : ${dsCategory}"
+                                th:value="${cate.id}"
+                                th:text="${cate.name}">
+                        </option>
+                    </select>
+                    <div th:if="${#fields.hasErrors('category')}" th:errors="*{category}" class="error"></div>
+                </td>
+
+            </tr>
+
+            <tr>
+                <td colspan="2"><input type="submit" value="THÊM SÁCH"/></td>
+            </tr>
+
+
+        </table>
+
+
+    </form>
+</div>
+
+</body>
+</html>

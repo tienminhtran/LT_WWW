@@ -1,0 +1,40 @@
+<persistence-unit name="QLdienthoai"
+		transaction-type="RESOURCE_LOCAL">
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+		<properties>
+			<property name="jakarta.persistence.jdbc.driver"
+				value="org.mariadb.jdbc.Driver" />
+			<property name="jakarta.persistence.jdbc.url"
+				value="jdbc:mariadb://localhost:3306/quanlydienthoai" />
+			<property name="jakarta.persistence.jdbc.user" value="root" />
+			<property name="jakarta.persistence.jdbc.password"
+				value="sapassword" />
+			<property name="hibernate.dialect"
+				value="org.hibernate.dialect.MariaDBDialect" />
+			<property
+				name="jakarta.persistence.schema-generation.database.action"
+				value="update" />
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="true" />
+			<property name="hibernate.highlight_sql" value="true" />
+		</properties>
+	</persistence-unit>
+	
+	
+	<persistence-unit name="QLdienthoai_SQL">
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+		<properties>
+			<property name="jakarta.persistence.jdbc.driver"
+				value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
+			<property name="jakarta.persistence.jdbc.url"
+				value="jdbc:sqlserver://localhost:1433;databaseName=dienthoaishop;trustServerCertificate=true;encrypt=true;" />
+			<property name="jakarta.persistence.jdbc.user" value="sa" />
+			<property name="jakarta.persistence.jdbc.password"
+				value="sapassword" />
+			<property name="jakarta.persistence.jdbc.dialect"
+				value="org.hibernate.dialect.SQLServerDialect" />
+			<property name="hibernate.show_sql" value="false" />
+			<property name="hibernate.format_sql" value="false" />
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+		</properties>
+	</persistence-unit>

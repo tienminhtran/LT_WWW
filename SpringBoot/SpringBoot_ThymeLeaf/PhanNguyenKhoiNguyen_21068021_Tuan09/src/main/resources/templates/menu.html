@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>HOME</title>
+    <style>
+        /* Định dạng chung cho menu */
+        .menu {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #333;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            flex-wrap: wrap;
+        }
+
+        /* Định dạng cho các mục menu (HOME, ADD PRODUCT) */
+        .menu-item {
+            color: white;
+            text-decoration: none;
+            margin: 0 20px;
+            padding: 8px 16px;
+            font-size: 16px;
+            font-weight: 500;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+            display: inline-block;
+        }
+
+        .menu-item:hover {
+            background-color: #5e5e5e;
+        }
+
+        /* Định dạng cho dropdown (select category) */
+        .category-dropdown {
+            margin-left: 20px;
+            display: inline-block;
+        }
+
+        .dropdown {
+            padding: 8px 16px;
+            font-size: 16px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            background-color: white;
+            cursor: pointer;
+            transition: border 0.3s ease, background-color 0.3s ease;
+            width: 200px;
+        }
+
+        .dropdown:hover {
+            border-color: #888;
+        }
+
+        .dropdown:focus {
+            outline: none;
+            background-color: #f0f0f0;
+        }
+
+        /* Thêm style cho khi dropdown được chọn */
+        .dropdown option {
+            padding: 8px;
+            font-size: 16px;
+        }
+
+        /* Style cho khi menu có nhiều mục và muốn chúng hiển thị theo chiều dọc */
+        .menu-item, .category-dropdown {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="menu">
+    <a href="/product/home" class="menu-item">HOME</a>
+    <a href="/product/showFormAddProduct" class="menu-item">ADD PRODUCT</a>
+    <a href="/product/showFormAddCategory" class="menu-item">ADD CATEGORY</a>
+
+    <form th:action="@{/product/viewCategory}" method="get" class="category-dropdown">
+        <select name="category" onchange="this.form.submit()" class="dropdown">
+            <option value="" disabled selected>--Category --</option>
+            <option th:each="category : ${dsCategory}"
+                    th:value="${category.id}"
+                    th:text="${category.name}">
+            </option>
+        </select>
+    </form>
+</div>
+</body>
+</html>

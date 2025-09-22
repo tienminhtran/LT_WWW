@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .error{
+            color: red;
+        }
+        table{
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+<body>
+    <h1>+++++++++++++++++++UPDATE EMPLOYEE+++++++++++++++++++</h1>
+    <form th:action="@{/employee/update}"  th:object="${employee}"  method="post">
+        <table>
+            <tr>
+                <td>ID</td>
+                <td>
+                    <input type="text" th:field="*{id}" readonly="readonly"/>
+                </td>
+            </tr>
+            <tr>
+                <td>Name</td>
+                <td>
+                    <input type="text" th:field="*{name}"/>
+                    <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error"></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Gender</td>
+                <td>
+                    <input type="text" th:field="*{gender}" />
+                    <div th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}" class="error"></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Email</td>
+                <td>
+                    <input type="text" th:field="*{email}" />
+                    <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error"></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Number phone</td>
+                <td>
+                    <input type="text" th:field="*{phone}" />
+                    <div th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="error"></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Address</td>
+                <td>
+                    <input type="text" th:field="*{address}" />
+                    <div th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="error"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>Birthday</td>
+                <td>
+                    <input type="date" th:field="*{birthday}"/>
+                    <div th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}" class="error"></div>
+                </td>
+
+            </tr>
+
+            <tr>
+                <td>Salary</td>
+                <td>
+                    <input type="number" th:field="*{salary}" />
+                    <div th:if="${#fields.hasErrors('salary')}" th:errors="*{salary}" class="error"></div>
+                </td>
+
+            </tr>
+
+            <tr>
+                <td>Rating</td>
+                <td>
+                    <input type="number" th:field="*{rating}" />
+                    <div th:if="${#fields.hasErrors('rating')}" th:errors="*{rating}" class="error"></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Status</td>
+                <td>
+                    <select th:field="*{status}">
+                        <option value="true">TRUE</option>
+                        <option value="false">FALSE</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2"> <input type="submit" value="Update employee"/>   </td>
+            </tr>
+
+        </table>
+
+
+
+    </form>
+
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #content {
+            display: flex;
+            flex-direction: row;
+        }
+
+
+    </style>
+</head>
+<body>
+<div id="content">
+    <a href="/book/home">Trang chủ</a> ||
+    <a href="/book/formAdd">Thêm sách</a> ||
+
+    <form th:action="@{/book/viewCategory}" method="get">
+        <select name="category" onchange="this.form.submit()">
+            <option value="" disabled selected>Category</option>
+            <option th:each="category : ${dsCategory}"
+                    th:value="${category.id}"
+                    th:text="${category.name}">
+            </option>
+        </select>
+    </form>
+
+</div>
+</body>
+</html>

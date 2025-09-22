@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>TRANG CHỦ</title>
+    <style>
+        table {
+            border-collapse: collapse; /* Hợp nhất các viền của bảng */
+            width: 100%; /* Tuỳ chọn, có thể thêm để bảng rộng hết màn hình */
+        }
+
+        th, td {
+            border: 1px solid black; /* Định nghĩa viền cho các ô */
+            padding: 8px; /* Tuỳ chọn, để các ô có khoảng cách bên trong */
+            text-align: left; /* Căn chỉnh văn bản, có thể thay đổi */
+        }
+
+        th {
+            background-color: #f2f2f2; /* Màu nền cho tiêu đề, tuỳ chọn */
+        }
+    </style>
+
+</head>
+<body>
+<h1>TRANG CHỦ</h1>
+
+<th:block th:include="/Menu"></th:block>
+<br>
+<div>
+    <form th:action="@{/book/search}" method="post">
+        <input type="text" id="keyword" name="keyword" placeholder="Enter name, phone, or other keywords" />
+        <input type="submit" value="Search" />
+    </form>
+</div>
+<div>
+    <h3>DANH SÁCH SÁCH</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Tên sách</th>
+            <th>Tác giả</th>
+            <th>Hành động</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:if="${#lists.isEmpty(books)}">
+            <td colspan="4" style="text-align: center;">Không có sách nào trong danh sách.</td>
+        </tr>
+        <tr th:each="book : ${books}" th:unless="${#lists.isEmpty(books)}">
+            <td th:text="${book.id}"></td>
+            <td th:text="${book.title}"></td>
+            <td th:text="${book.author}"></td>
+            <td><a th:href="@{/book/detail(id=${book.id})}">Xem chi tiết</a></td>
+            <td><a th:href="@{/book/delete(id=${book.id})}"
+                   onclick="if (!confirm('Are you sure you want to delete this book?')) return false"
+            >Xóa</a></td>
+            <td><a th:href="@{/book/formUpdate(id=${book.id})}">Cập nhật</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<!-- Pagination controls -->
+<div>
+    <a th:if="${currentPage > 1}" th:href="@{/book/home(pageNo=${currentPage - 1}, pageSize=${10}, sortField=${sortField}, sortDirection=${sortDirection})}">Previous</a>
+    <span>Page <span th:text="${currentPage}"></span> of <span th:text="${totalPages}"></span></span>
+    <a th:if="${currentPage < totalPages}" th:href="@{/book/home(pageNo=${currentPage + 1}, pageSize=${10}, sortField=${sortField}, sortDirection=${sortDirection})}">Next</a>
+</div>
+
+</body>
+</html>

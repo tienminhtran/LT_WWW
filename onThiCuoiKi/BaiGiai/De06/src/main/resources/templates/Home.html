@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>HOME</title>
+    <style>
+        table{
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th,td{
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th{
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+   <div>
+       <a href="/order/home">HOME</a>
+       <a href="/order/formAdd">ADD</a>
+   </div>
+
+   <div>
+       <form th:action="@{/order/search}" method="get">
+           <input type="text" id="keyword" name="keyword" placeholder="Vui lòng nhập ID cần tìm">
+           <input type="submit" value="Search">
+       </form>
+   </div>
+   <div>
+       <table>
+           <thead>
+              <th>ID</th>
+              <th>PRODUCT ID</th>
+              <th>PRODUCT NAME</th>
+              <th>QUANTITY</th>
+              <th>PRICE</th>
+              <th>ACTION</th>
+           </thead>
+
+           <tbody>
+               <tr th:each="o : ${dsOrder}">
+                   <td th:text="${o.ID}"></td>
+                   <td th:text="${o.proID}"></td>
+                   <td th:text="${o.proName}"></td>
+                   <td th:text="${o.quantity}"></td>
+                   <td th:text="${o.price}"></td>
+                   <td>
+                       <a th:href="@{/order/detail(id=${o.ID})}">Xem chi tiết</a>
+                       <br>
+                       <a th:href="@{/order/formUpdate(id=${o.ID})}">Chỉnh sửa</a>
+                   </td>
+               </tr>
+           </tbody>
+
+
+
+       </table>
+
+
+
+   </div>
+
+</body>
+</html>

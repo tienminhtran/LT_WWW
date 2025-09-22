@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>TRANG CHỦ</title>
+    <style>
+        table {
+            border-collapse: collapse; /* Hợp nhất các viền của bảng */
+            width: 100%; /* Tuỳ chọn, có thể thêm để bảng rộng hết màn hình */
+        }
+
+        th, td {
+            border: 1px solid black; /* Định nghĩa viền cho các ô */
+            padding: 8px; /* Tuỳ chọn, để các ô có khoảng cách bên trong */
+            text-align: left; /* Căn chỉnh văn bản, có thể thay đổi */
+        }
+
+        th {
+            background-color: #f2f2f2; /* Màu nền cho tiêu đề, tuỳ chọn */
+        }
+    </style>
+
+</head>
+<body>
+<h1>TRANG CHỦ</h1>
+
+<th:block th:include="/Menu"></th:block>
+<br>
+<div>
+    <form th:action="@{/book/search}" method="post">
+        <input type="text" id="keyword" name="keyword" placeholder="Enter name, phone, or other keywords" />
+        <input type="submit" value="Search" />
+    </form>
+</div>
+<div>
+    <h3>DANH SÁCH DANH MỤC</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>TÊN DANH MỤC</th>
+            <th>DANH SÁCH SÁCH</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="cate : ${dsCategory}">
+            <td th:text="${cate.id}"></td>
+            <td th:text="${cate.name}"></td>
+            <td>
+                <ul th:each="book : ${map[cate.id]}">
+                    <li th:text="${book.title}"></li>
+                </ul>
+
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+</body>
+</html>
